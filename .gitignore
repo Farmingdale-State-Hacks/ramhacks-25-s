@@ -20,3 +20,5 @@ dist
 
 # docker-compose db
 db
+
+.vercel

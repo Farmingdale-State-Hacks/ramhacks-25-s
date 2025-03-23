@@ -46,7 +46,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         content: "width=device-width, initial-scale=1",
       },
       {
-        title: "TanStarter",
+        title: "FSHacks",
+      },
+      {
+        name: "description",
+        content: "FSHacks is a hackathon for the future of finance.",
       },
     ],
     links: [{ rel: "stylesheet", href: appCss }],

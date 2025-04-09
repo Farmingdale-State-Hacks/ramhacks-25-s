@@ -11,8 +11,15 @@ declare global {
       readonly GITHUB_CLIENT_SECRET: string;
       readonly GOOGLE_CLIENT_ID: string;
       readonly GOOGLE_CLIENT_SECRET: string;
+      readonly SENTRY_DSN: string;
+      readonly SENTRY_AUTH_TOKEN: string;
+      readonly SENTRY_PROJECT: string;
+      readonly SENTRY_ORG: string;
+      readonly SENTRY_URL: string;
     }
   }
 }
+
+
 
 export { };

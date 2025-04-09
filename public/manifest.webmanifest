@@ -13,6 +13,7 @@
   "categories": ["education", "technology", "hackathon"],
   "orientation": "portrait-primary",
   "display_override": ["minimal-ui", "browser", "fullscreen", "window-controls-overlay"],
+  "service_worker": "/sw.js",
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",

@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from '@tanstack/react-router';
 import { Mail, Calendar, Link as LinkIcon } from 'lucide-react';
 
 export const Footer: React.FC = () => {

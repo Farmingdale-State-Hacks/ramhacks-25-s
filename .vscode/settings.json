@@ -17,9 +17,20 @@
 
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
-    "tsconfig.json": "tsconfig.*.json, env.d.ts",
-    "app.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*",
-    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock"
+    "tsconfig.json": "tsconfig.*.json, *.d.ts",
+    "app.config.*": "jsconfig*, vitest.config.*, cypress.config.*, playwright.config.*, jest.config.*",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .eslint*, eslint*, .prettier*, prettier*, .editorconfig, .gitattributes, bun.lock, .npmrc, .nvmrc",
+    "*.ts": "$(capture).test.ts, $(capture).spec.ts, $(capture).d.ts, $(capture).types.ts, $(capture).stories.ts, $(capture).mock.ts",
+    "*.tsx": "$(capture).test.tsx, $(capture).spec.tsx, $(capture).stories.tsx, $(capture).mock.tsx",
+    "*.js": "$(capture).test.js, $(capture).spec.js, $(capture).stories.js, $(capture).mock.js",
+    "*.jsx": "$(capture).test.jsx, $(capture).spec.jsx, $(capture).stories.jsx, $(capture).mock.jsx",
+    "README.md": "LICENSE*, CHANGELOG.md, CONTRIBUTING.md, CODE_OF_CONDUCT.md, AUTHORS.md",
+    ".env": ".env.*, .envrc, .env.local, .env.development, .env.test, .env.production",
+    "vite.config.ts": "vite.*.config.ts",
+    "*.component.ts": "$(capture).module.ts, $(capture).style.ts",
+    "*.component.tsx": "$(capture).module.tsx, $(capture).style.tsx",
+    "docker-compose.yml": "docker-compose.*.yml, Dockerfile",
+    ".gitignore": ".gitkeep, .dockerignore"
   },
 
   // always choose typescript from node_modules

@@ -1,4 +1,18 @@
 {
+  "name": "RamHacks",
+  "description": "RamHacks is a student-run hackathon organization at Farmingdale State College. Our mission is to inspire innovation, foster collaboration, and build a vibrant tech community on campus.",
+  "lang": "en-US",
+  "dir": "ltr",
+  "short_name": "RamHacks",
+  "start_url": "/",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "categories": ["education", "technology", "hackathon"],
+  "orientation": "portrait-primary",
+  "display_override": ["minimal-ui", "browser", "fullscreen", "window-controls-overlay"],
   "icons": [
     {
       "src": "windows11/SmallTile.scale-100.png",
@@ -447,6 +461,36 @@
     {
       "src": "ios/1024.png",
       "sizes": "1024x1024"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "About",
+      "short_name": "About",
+      "url": "/about",
+      "description": "Learn more about Mike Odnis, his background, and interests.",
+      "icons": [
+          {
+            "src": "/assets/svgs/logo-small.svg",
+            "type": "image/svg+xml",
+            "purpose": "any",
+            "sizes": "96x96"
+          }
+        ]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/assets/images/screenshots/about.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/assets/images/screenshots/about.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide"
     }
   ]
 }

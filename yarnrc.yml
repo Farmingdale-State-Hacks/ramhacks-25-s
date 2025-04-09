@@ -1,0 +1,37 @@
+# Yarn configuration file
+# See https://yarnpkg.com/configuration/yarnrc for all available options
+
+# Package management
+enableGlobalCache: true
+nodeLinker: node-modules
+
+# Network settings
+enableNetwork: true
+enableStrictSsl: true
+npmRegistryServer: "https://registry.yarnpkg.com"
+
+# Installation behavior
+enableHardenedMode: true
+enableImmutableInstalls: true
+enableProgressBars: true
+enableScripts: true
+
+# PnP settings
+pnpMode: "strict"
+pnpEnableInlining: true
+
+# Cache settings
+compressionLevel: 0
+
+# Development experience
+enableColors: true
+enableHyperlinks: true
+enableMessageNames: true
+preferInteractive: true
+
+# Package extensions for compatibility
+packageExtensions:
+  "react-day-picker@9.6.3":
+    peerDependencies:
+      "react": "*"
+      "react-dom": "*"

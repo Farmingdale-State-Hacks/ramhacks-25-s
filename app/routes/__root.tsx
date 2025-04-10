@@ -1,3 +1,4 @@
+import { wrapCreateRootRouteWithSentry } from "@sentry/tanstackstart-react";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
@@ -23,11 +24,11 @@ const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
     ? () => null // Render nothing in production
     : lazy(() =>
-        // Lazy load in development
-        import("@tanstack/router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
+      // Lazy load in development
+      import("@tanstack/router-devtools").then((res) => ({
+        default: res.TanStackRouterDevtools,
+      })),
+    );
 
 const getUser = createServerFn({ method: "GET" }).handler(async () => {
   logger.info("Fetching user session");
@@ -53,7 +54,7 @@ const getUser = createServerFn({ method: "GET" }).handler(async () => {
   }
 });
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = wrapCreateRootRouteWithSentry(createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async () => {
     logger.info("Loading root route");
     const user = await getUser();
@@ -80,7 +81,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     links: [{ rel: "stylesheet", href: appCss }],
   }),
   component: RootComponent,
-});
+}));
 
 function RootComponent() {
   logger.debug("Rendering root component");

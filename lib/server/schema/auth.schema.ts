@@ -49,3 +49,104 @@ export const verification = pgTable("verification", {
   createdAt: timestamp("created_at"),
   updatedAt: timestamp("updated_at"),
 });
+
+export const hackathon = pgTable("hackathon", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  registrationDeadline: timestamp("registration_deadline").notNull(),
+  submissionDeadline: timestamp("submission_deadline").notNull(),
+  location: text("location"),
+  isVirtual: boolean("is_virtual").notNull().default(false),
+  maxParticipants: text("max_participants"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+  organizerId: text("organizer_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+});
+
+export const hackathonParticipant = pgTable("hackathon_participant", {
+  id: text("id").primaryKey(),
+  hackathonId: text("hackathon_id")
+    .notNull()
+    .references(() => hackathon.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  registrationDate: timestamp("registration_date").notNull(),
+  status: text("status").notNull(), // "registered", "confirmed", "checked_in", "withdrawn"
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const team = pgTable("team", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  hackathonId: text("hackathon_id")
+    .notNull()
+    .references(() => hackathon.id, { onDelete: "cascade" }),
+  leaderId: text("leader_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const teamMember = pgTable("team_member", {
+  id: text("id").primaryKey(),
+  teamId: text("team_id")
+    .notNull()
+    .references(() => team.id, { onDelete: "cascade" }),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  joinedAt: timestamp("joined_at").notNull(),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const project = pgTable("project", {
+  id: text("id").primaryKey(),
+  name: text("name").notNull(),
+  description: text("description").notNull(),
+  repoUrl: text("repo_url"),
+  demoUrl: text("demo_url"),
+  submissionDate: timestamp("submission_date").notNull(),
+  hackathonId: text("hackathon_id")
+    .notNull()
+    .references(() => hackathon.id, { onDelete: "cascade" }),
+  teamId: text("team_id")
+    .notNull()
+    .references(() => team.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const judge = pgTable("judge", {
+  id: text("id").primaryKey(),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  hackathonId: text("hackathon_id")
+    .notNull()
+    .references(() => hackathon.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});
+
+export const judging = pgTable("judging", {
+  id: text("id").primaryKey(),
+  judgeId: text("judge_id")
+    .notNull()
+    .references(() => judge.id, { onDelete: "cascade" }),
+  projectId: text("project_id")
+    .notNull()
+    .references(() => project.id, { onDelete: "cascade" }),
+  score: text("score").notNull(),
+  feedback: text("feedback"),
+  createdAt: timestamp("created_at").notNull(),
+  updatedAt: timestamp("updated_at").notNull(),
+});

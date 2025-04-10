@@ -11,7 +11,9 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "start": "vinxi start",
-    "ui": "pnpm dlx shadcn@canary"
+    "ui": "pnpm dlx shadcn@canary",
+		"typegen": "wrangler types"
+
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250410.0",

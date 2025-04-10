@@ -13,4 +13,4 @@ Sentry.init({
 export default createStartHandler({
   createRouter,
   getRouterManifest,
-})(defaultStreamHandler);
+})(Sentry.wrapStreamHandlerWithSentry(defaultStreamHandler));

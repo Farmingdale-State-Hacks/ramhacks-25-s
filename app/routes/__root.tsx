@@ -13,6 +13,11 @@ import { lazy, Suspense } from "react";
 
 import { auth } from "~/lib/server/auth";
 import appCss from "~/lib/styles/app.css?url";
+import { Logger, LogLevel } from "~/lib/utils";
+
+const logger = new Logger("Root", {
+  minLevel: LogLevel.INFO,
+});
 
 const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
@@ -25,15 +30,34 @@ const TanStackRouterDevtools =
       );
 
 const getUser = createServerFn({ method: "GET" }).handler(async () => {
-  const { headers } = getWebRequest();
-  const session = await auth.api.getSession({ headers });
+  logger.info("Fetching user session");
+  try {
+    const request = getWebRequest();
+    if (!request) {
+      logger.warn("No web request available");
+      return null;
+    }
 
-  return session?.user || null;
+    const { headers } = request;
+    const session = await auth.api.getSession({ headers });
+
+    logger.debug("User session retrieved", {
+      authenticated: !!session?.user,
+      userId: session?.user?.id
+    });
+
+    return session?.user || null;
+  } catch (error) {
+    logger.error("Failed to get user session", { error });
+    return null;
+  }
 });
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
   beforeLoad: async () => {
+    logger.info("Loading root route");
     const user = await getUser();
+    logger.info("User loaded", { authenticated: !!user });
     return { user };
   },
   head: () => ({
@@ -59,6 +83,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootComponent() {
+  logger.debug("Rendering root component");
   return (
     <RootDocument>
       <Outlet />
@@ -67,6 +92,7 @@ function RootComponent() {
 }
 
 function RootDocument({ children }: { readonly children: React.ReactNode }) {
+  logger.debug("Rendering root document");
   return (
     // suppress since we're updating the "dark" class in a custom script below
     <html suppressHydrationWarning>

@@ -3,7 +3,6 @@ import { defineConfig } from "@tanstack/react-start/config";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { wrapVinxiConfigWithSentry } from "@sentry/tanstackstart-react";
-import { cloudflare } from 'unenv'
 
 const config = defineConfig({
   vite: {
@@ -45,8 +44,7 @@ const config = defineConfig({
      * preset: "cloudflare-pages",
      * unenv: cloudflare,
      */
-    preset: "cloudflare-pages",
-    unenv: cloudflare,
+    preset: "vercel",
   },
 } satisfies TanStackStartInputConfig);
 

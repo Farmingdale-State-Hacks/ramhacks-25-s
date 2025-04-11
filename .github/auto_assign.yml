@@ -1,0 +1,7 @@
+addReviewers: true
+addAssignees: false
+
+reviewers:
+  - WomB0ComB0
+
+numberOfReviewers: 1

@@ -5,20 +5,21 @@
   "scripts": {
     "auth": "pnpm dlx @better-auth/cli@latest",
     "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./lib/server/schema/auth.schema.ts && prettier --write ./lib/server/schema/auth.schema.ts",
-    "build": "vinxi build",
+    "build": "vinxi build && bun run sentry:sourcemaps",
     "db": "drizzle-kit",
     "dev": "vinxi dev",
     "format": "prettier --write .",
     "lint": "eslint .",
     "start": "vinxi start",
     "ui": "pnpm dlx shadcn@canary",
-		"typegen": "wrangler types"
-
+    "typegen": "wrangler types",
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org womb0comb0 --project ramhacks-25-s ./.vinxi/build/client/_build && sentry-cli sourcemaps upload --org womb0comb0 --project ramhacks-25-s ./.vinxi/build/client/_build"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250410.0",
     "@playwright/test": "^1.51.1",
     "@radix-ui/react-slot": "^1.2.0",
+    "@sentry/cli": "^2.43.0",
     "@sentry/react": "^9.12.0",
     "@sentry/tanstackstart-react": "^9.12.0",
     "@tanstack/react-query": "^5.72.1",

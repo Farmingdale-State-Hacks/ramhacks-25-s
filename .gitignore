@@ -81,3 +81,6 @@ sw.js.*
 
 # analyze
 /analyze/
+
+# Sentry Config File
+.sentryclirc

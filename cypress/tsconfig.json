@@ -4,6 +4,7 @@
     "noEmit": true,
     "types": ["cypress", "cypress-wait-until"],
     "sourceMap": false,
+    "inlineSourceMap": true
   },
   "include": [
     "../node_modules/cypress",

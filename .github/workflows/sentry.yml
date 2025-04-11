@@ -31,6 +31,6 @@ jobs:
         with:
           environment: production
           sourcemaps: ./.vinxi/build/client/_build
-          version: ${{ github.sha }}
+          release: ${{ github.sha }}
           ignore_missing: true
           url_prefix: '~/'

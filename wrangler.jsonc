@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "website-2025",
+  "name": "ramhacks-25-s",
 	"compatibility_date": "2024-11-01",
 	"main": "./server.ts",
 	"compatibility_flags": ["nodejs_compat"],

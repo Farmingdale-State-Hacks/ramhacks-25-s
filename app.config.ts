@@ -3,6 +3,8 @@ import { defineConfig } from "@tanstack/react-start/config";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { wrapVinxiConfigWithSentry } from "@sentry/tanstackstart-react";
+import MillionLint from "@million/lint";
+import { VitePWA } from "vite-plugin-pwa";
 
 const config = defineConfig({
   vite: {
@@ -14,6 +16,18 @@ const config = defineConfig({
         projects: ["./tsconfig.json"],
       }),
       tailwindcss(),
+      MillionLint.vite({
+        react: "19"
+      }),
+      VitePWA({
+				workbox: {
+					cleanupOutdatedCaches: true,
+					globPatterns: ["**/*"],
+				},
+				registerType: "autoUpdate",
+				injectRegister: "auto",
+				includeAssets: ["**/*"],
+			}),
     ],
     ssr: {
       external: [

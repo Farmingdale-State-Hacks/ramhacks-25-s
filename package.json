@@ -13,7 +13,7 @@
     "start": "vinxi start",
     "ui": "pnpm dlx shadcn@canary",
     "typegen": "wrangler types",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --org womb0comb0 --project ramhacks-25-s ./.vinxi/build/client/_build && sentry-cli sourcemaps upload --org womb0comb0 --project ramhacks-25-s ./.vinxi/build/client/_build"
+    "sentry:sourcemaps": "sentry-cli sourcemaps inject --auth-token $SENTRY_AUTH_TOKEN --org $SENTRY_ORG --project $SENTRY_PROJECT ./.vinxi/build/client/_build && sentry-cli sourcemaps upload --auth-token $SENTRY_AUTH_TOKEN --org $SENTRY_ORG --project $SENTRY_PROJECT ./.vinxi/build/client/_build"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250410.0",

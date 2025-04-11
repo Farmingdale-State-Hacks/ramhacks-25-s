@@ -84,3 +84,5 @@ sw.js.*
 
 # Sentry Config File
 .sentryclirc
+
+app.config.timestamp_*.js

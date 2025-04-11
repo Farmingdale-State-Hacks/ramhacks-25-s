@@ -1,16 +1,27 @@
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "@tanstack/react-start/config";
+import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import tsConfigPaths from "vite-tsconfig-paths";
 import { wrapVinxiConfigWithSentry } from "@sentry/tanstackstart-react";
+import { cloudflare } from 'unenv'
 
 const config = defineConfig({
   vite: {
+    build: {
+      sourcemap: "hidden",
+    },
     plugins: [
       tsConfigPaths({
         projects: ["./tsconfig.json"],
       }),
       tailwindcss(),
     ],
+    ssr: {
+      external: [
+        "@tanstack/react-query",
+        "@tanstack/react-query-devtools",
+      ],
+    },
   },
 
   // https://react.dev/learn/react-compiler
@@ -28,10 +39,16 @@ const config = defineConfig({
   },
 
   server: {
-    // https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
-    // preset: "netlify",
+    /**
+     * @see https://tanstack.com/start/latest/docs/framework/react/hosting#deployment
+     *
+     * preset: "cloudflare-pages",
+     * unenv: cloudflare,
+     */
+    preset: "cloudflare-pages",
+    unenv: cloudflare,
   },
-});
+} satisfies TanStackStartInputConfig);
 
 export default wrapVinxiConfigWithSentry(config, {
   org: process.env.SENTRY_ORG,

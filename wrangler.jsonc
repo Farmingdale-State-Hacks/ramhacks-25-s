@@ -1,6 +1,6 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-  "name": "ramhacks-25-s",
+	"name": "ramhacks-25-s",
 	"compatibility_date": "2024-11-01",
 	"main": "./server.ts",
 	"compatibility_flags": ["nodejs_compat"],
@@ -10,5 +10,11 @@
 	"observability": {
 		"enabled": true
 	},
-	"upload_source_maps": true
+	"upload_source_maps": true,
+	"dev": {
+		"port": 3000
+	},
+	"routes": [
+		"*"
+	]
 }

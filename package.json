@@ -5,15 +5,14 @@
   "scripts": {
     "auth": "pnpm dlx @better-auth/cli@latest",
     "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./lib/server/schema/auth.schema.ts && prettier --write ./lib/server/schema/auth.schema.ts",
-    "build": "vinxi build && bun run sentry:sourcemaps",
+    "build": "vinxi build --preset cloudflare-pages && sentry-cli sourcemaps inject --auth-token $SENTRY_AUTH_TOKEN --org $SENTRY_ORG --project $SENTRY_PROJECT ./.vinxi/build/client/_build && sentry-cli sourcemaps upload --auth-token $SENTRY_AUTH_TOKEN --org $SENTRY_ORG --project $SENTRY_PROJECT ./.vinxi/build/client/_build",
     "db": "drizzle-kit",
     "dev": "vinxi dev",
     "format": "prettier --write .",
     "lint": "eslint .",
     "start": "vinxi start",
     "ui": "pnpm dlx shadcn@canary",
-    "typegen": "wrangler types",
-    "sentry:sourcemaps": "sentry-cli sourcemaps inject --auth-token $SENTRY_AUTH_TOKEN --org $SENTRY_ORG --project $SENTRY_PROJECT ./.vinxi/build/client/_build && sentry-cli sourcemaps upload --auth-token $SENTRY_AUTH_TOKEN --org $SENTRY_ORG --project $SENTRY_PROJECT ./.vinxi/build/client/_build"
+    "typegen": "wrangler types"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250410.0",
@@ -40,6 +39,7 @@
     "react-dom": "^19.1.0",
     "tailwind-merge": "^3.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "unenv": "^1.10.0",
     "vinxi": "^0.5.3"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 
-import React from 'react';
+import type React from 'react';
 import { Button } from '../ui/button';
 import { Calendar } from 'lucide-react';
 

@@ -1,92 +1,96 @@
-
-import React from 'react';
-import { Button } from '../ui/button';
+import { Check } from "lucide-react";
+import type React from "react";
+import { Button } from "~/lib/components/ui/button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle
-} from '../ui/card';
-import { Check } from 'lucide-react';
+  CardTitle,
+} from "~/lib/components/ui/card";
 
 export const Sponsors: React.FC = () => {
   const sponsorLevels = [
     {
-      title: 'Platinum',
-      price: '$5,000+',
-      color: 'bg-gradient-to-br from-gray-200 to-gray-400',
+      title: "Platinum",
+      price: "$5,000+",
+      color: "bg-gradient-to-br from-gray-200 to-gray-400",
       features: [
-        'Prime logo placement on website and event materials',
-        'Dedicated sponsor table at event',
-        'Speaking opportunity during opening ceremony',
-        'Access to participant resumes',
-        'Social media promotion (5+ posts)',
-        'Branded prize category',
-        'Recruitment access during event',
-        '5 branded items in swag bags'
-      ]
+        "Prime logo placement on website and event materials",
+        "Dedicated sponsor table at event",
+        "Speaking opportunity during opening ceremony",
+        "Access to participant resumes",
+        "Social media promotion (5+ posts)",
+        "Branded prize category",
+        "Recruitment access during event",
+        "5 branded items in swag bags",
+      ],
     },
     {
-      title: 'Gold',
-      price: '$2,500',
-      color: 'bg-gradient-to-br from-amber-200 to-amber-400',
+      title: "Gold",
+      price: "$2,500",
+      color: "bg-gradient-to-br from-amber-200 to-amber-400",
       features: [
-        'Featured logo on website and event materials',
-        'Sponsor table at event',
-        'Brief speaking opportunity',
-        'Access to participant resumes',
-        'Social media promotion (3+ posts)',
-        'Recruitment access during event',
-        '3 branded items in swag bags'
-      ]
+        "Featured logo on website and event materials",
+        "Sponsor table at event",
+        "Brief speaking opportunity",
+        "Access to participant resumes",
+        "Social media promotion (3+ posts)",
+        "Recruitment access during event",
+        "3 branded items in swag bags",
+      ],
     },
     {
-      title: 'Silver',
-      price: '$1,000',
-      color: 'bg-gradient-to-br from-gray-100 to-gray-300',
+      title: "Silver",
+      price: "$1,000",
+      color: "bg-gradient-to-br from-gray-100 to-gray-300",
       features: [
-        'Logo on website and event materials',
-        'Shared sponsor table',
-        'Social media promotion (1+ post)',
-        'Recruitment access during event',
-        '1 branded item in swag bags'
-      ]
+        "Logo on website and event materials",
+        "Shared sponsor table",
+        "Social media promotion (1+ post)",
+        "Recruitment access during event",
+        "1 branded item in swag bags",
+      ],
     },
     {
-      title: 'Bronze',
-      price: '$500',
-      color: 'bg-gradient-to-br from-amber-100 to-amber-300',
+      title: "Bronze",
+      price: "$500",
+      color: "bg-gradient-to-br from-amber-100 to-amber-300",
       features: [
-        'Logo on website',
-        'Acknowledgment during event',
-        'Social media mention'
-      ]
-    }
+        "Logo on website",
+        "Acknowledgment during event",
+        "Social media mention",
+      ],
+    },
   ];
 
   const benefits = [
-    'Brand visibility to a diverse and engaged group of future tech leaders',
-    'Recruitment opportunities among highly motivated and skilled students',
-    'Support a vibrant tech community at Farmingdale State College',
-    'Demonstrate your commitment to technology education and innovation',
-    'Connect with other companies and organizations in the tech ecosystem'
+    "Brand visibility to a diverse and engaged group of future tech leaders",
+    "Recruitment opportunities among highly motivated and skilled students",
+    "Support a vibrant tech community at Farmingdale State College",
+    "Demonstrate your commitment to technology education and innovation",
+    "Connect with other companies and organizations in the tech ecosystem",
   ];
 
   return (
     <section id="sponsors" className="py-20 bg-fshacks-gray">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-fshacks-navy mb-4">Sponsor FSHacks 2025</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-fshacks-navy mb-4">
+            Sponsor FSHacks 2025
+          </h2>
           <p className="text-lg text-gray-700 max-w-3xl mx-auto">
-            Your support helps us create an inspiring environment for students to innovate and solve problems.
-            Partner with FSHacks and connect with the next generation of tech talent.
+            Your support helps us create an inspiring environment for students to innovate
+            and solve problems. Partner with FSHacks and connect with the next generation
+            of tech talent.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
           <div>
-            <h3 className="text-2xl font-bold text-fshacks-navy mb-4">Why Sponsor FSHacks?</h3>
+            <h3 className="text-2xl font-bold text-fshacks-navy mb-4">
+              Why Sponsor FSHacks?
+            </h3>
             <div className="bg-white p-6 rounded-lg shadow-md">
               <ul className="space-y-4">
                 {benefits.map((benefit, index) => (
@@ -123,19 +127,28 @@ export const Sponsors: React.FC = () => {
           </div>
         </div>
 
-        <h3 className="text-2xl font-bold text-fshacks-navy mb-6 text-center">Sponsorship Tiers</h3>
+        <h3 className="text-2xl font-bold text-fshacks-navy mb-6 text-center">
+          Sponsorship Tiers
+        </h3>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {sponsorLevels.map((level, index) => (
             <Card key={index} className="shadow-md hover:shadow-lg transition-shadow">
               <CardHeader className={`${level.color} text-center py-6`}>
-                <CardTitle className="text-2xl font-bold text-fshacks-navy">{level.title}</CardTitle>
-                <CardDescription className="text-xl font-semibold text-fshacks-navy">{level.price}</CardDescription>
+                <CardTitle className="text-2xl font-bold text-fshacks-navy">
+                  {level.title}
+                </CardTitle>
+                <CardDescription className="text-xl font-semibold text-fshacks-navy">
+                  {level.price}
+                </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
                 <ul className="space-y-3">
                   {level.features.map((feature, i) => (
                     <li key={i} className="flex items-start">
-                      <Check className="text-fshacks-orange mr-2 flex-shrink-0 mt-1" size={18} />
+                      <Check
+                        className="text-fshacks-orange mr-2 flex-shrink-0 mt-1"
+                        size={18}
+                      />
                       <span className="text-sm text-gray-700">{feature}</span>
                     </li>
                   ))}
@@ -146,9 +159,12 @@ export const Sponsors: React.FC = () => {
         </div>
 
         <div className="text-center">
-          <h3 className="text-2xl font-bold text-fshacks-navy mb-4">Interested in Sponsoring?</h3>
+          <h3 className="text-2xl font-bold text-fshacks-navy mb-4">
+            Interested in Sponsoring?
+          </h3>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto mb-6">
-            We're happy to discuss custom sponsorship packages that align with your organization's goals.
+            We're happy to discuss custom sponsorship packages that align with your
+            organization's goals.
           </p>
           <Button className="bg-fshacks-orange hover:bg-fshacks-navy transition-colors text-white px-8 py-6 text-lg">
             Contact Us About Sponsorship
@@ -159,5 +175,5 @@ export const Sponsors: React.FC = () => {
   );
 };
 
-Sponsors.displayName = 'Sponsors';
+Sponsors.displayName = "Sponsors";
 export default Sponsors;

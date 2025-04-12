@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from '@tanstack/react-router';
-import { Button } from '../ui/button';
-import { Menu, X } from 'lucide-react';
+import { Link } from "@tanstack/react-router";
+import { Menu, X } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
+import { Button } from "../ui/button";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,19 +27,34 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center space-x-6">
-          <a href="#about" className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300">
+          <a
+            href="#about"
+            className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+          >
             About
           </a>
-          <a href="#schedule" className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300">
+          <a
+            href="#schedule"
+            className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+          >
             Schedule
           </a>
-          <a href="#clubs" className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300">
+          <a
+            href="#clubs"
+            className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+          >
             Clubs
           </a>
-          <a href="#sponsors" className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300">
+          <a
+            href="#sponsors"
+            className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+          >
             Sponsors
           </a>
-          <a href="#faq" className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300">
+          <a
+            href="#faq"
+            className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+          >
             FAQ
           </a>
           <Button className="bg-ramhacks-orange hover:bg-ramhacks-navy transition-colors">
@@ -48,10 +64,7 @@ export const Navbar: React.FC = () => {
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
-          <button
-            className="text-ramhacks-navy focus:outline-none"
-            onClick={toggleMenu}
-          >
+          <button className="text-ramhacks-navy focus:outline-none" onClick={toggleMenu}>
             {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
@@ -106,5 +119,5 @@ export const Navbar: React.FC = () => {
   );
 };
 
-Navbar.displayName = 'Navbar';
+Navbar.displayName = "Navbar";
 export default Navbar;

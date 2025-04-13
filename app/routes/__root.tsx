@@ -8,13 +8,10 @@ import {
   ScriptOnce,
   Scripts,
 } from "@tanstack/react-router";
-import { createServerFn } from "@tanstack/react-start";
-import { getWebRequest } from "@tanstack/react-start/server";
 import { lazy, Suspense } from "react";
-
-import { auth } from "~/lib/server/auth";
 import appCss from "~/lib/styles/app.css?url";
-import { Logger, LogLevel } from "~/lib/utils";
+import { seo, Logger, LogLevel } from "~/lib/utils";
+import { app } from "~/config";
 
 const logger = new Logger("Root", {
   minLevel: LogLevel.INFO,
@@ -24,64 +21,39 @@ const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
     ? () => null // Render nothing in production
     : lazy(() =>
-      // Lazy load in development
-      import("@tanstack/router-devtools").then((res) => ({
-        default: res.TanStackRouterDevtools,
-      })),
-    );
+        // Lazy load in development
+        import("@tanstack/router-devtools").then((res) => ({
+          default: res.TanStackRouterDevtools,
+        })),
+      );
 
-const getUser = createServerFn({ method: "GET" }).handler(async () => {
-  logger.info("Fetching user session");
-  try {
-    const request = getWebRequest();
-    if (!request) {
-      logger.warn("No web request available");
-      return null;
-    }
-
-    const { headers } = request;
-    const session = await auth.api.getSession({ headers });
-
-    logger.debug("User session retrieved", {
-      authenticated: !!session?.user,
-      userId: session?.user?.id
-    });
-
-    return session?.user || null;
-  } catch (error) {
-    logger.error("Failed to get user session", { error });
-    return null;
-  }
-});
-
-export const Route = wrapCreateRootRouteWithSentry(createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  beforeLoad: async () => {
-    logger.info("Loading root route");
-    const user = await getUser();
-    logger.info("User loaded", { authenticated: !!user });
-    return { user };
-  },
-  head: () => ({
-    meta: [
-      {
-        charSet: "utf-8",
-      },
-      {
-        name: "viewport",
-        content: "width=device-width, initial-scale=1",
-      },
-      {
-        title: "RamHacks",
-      },
-      {
-        name: "description",
-        content: "RamHacks is a student-run hackathon organization at Farmingdale State College. Our mission is to inspire innovation, foster collaboration, and build a vibrant tech community on campus.",
-      },
-    ],
-    links: [{ rel: "stylesheet", href: appCss }],
+export const Route = wrapCreateRootRouteWithSentry(
+  createRootRouteWithContext<{ queryClient: QueryClient }>()({
+    beforeLoad: async () => {
+      logger.info("Loading root route");
+      return {};
+    },
+    head: () => ({
+      meta: [
+        {
+          charSet: "utf-8",
+        },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1",
+        },
+        ...seo({
+          title: app.name,
+          description: app.description,
+          keywords: app.keywords?.join(", "),
+          image: app.image,
+        })
+      ],
+      links: [{ rel: "stylesheet", href: appCss }],
+    }),
+    component: RootComponent,
   }),
-  component: RootComponent,
-}));
+);
 
 function RootComponent() {
   logger.debug("Rendering root component");

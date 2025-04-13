@@ -118,7 +118,7 @@ declare class EdenFetchError<
   Value = unknown
 > extends Error {
   constructor(public status: Status, public value: Value) {
-    super(`${value}`);
+    super(`${valuez}`);
   }
 }
 

@@ -2,7 +2,6 @@ import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
 import { Navbar, Hero, About, Schedule, Clubs, Sponsors, FAQ, Footer } from "~/lib/components/home";
 import ThemeToggle from "~/lib/components/theme-toggle";
 import { Button } from "~/lib/components/ui/button";
-import authClient from "~/lib/utils/auth-client";
 
 export const Route = createFileRoute("/")({
   component: Landing,

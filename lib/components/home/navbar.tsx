@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-white py-4 sticky top-0 z-50 shadow-sm">
+    <nav className="bg-background py-4 sticky top-0 z-50 shadow-md">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo Section */}
         <div className="flex items-center">
@@ -23,22 +23,22 @@ export const Navbar: React.FC = () => {
               alt="RamHacks Logo"
               className="h-10 w-auto mr-2"
             />
-            <span className="text-ramhacks-navy font-bold text-xl">RamHacks</span>
+            <span className="text-white font-bold text-xl">RamHacks</span>
           </Link>
         </div>
 
         {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center space-x-6">
-          {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link, index) => (
+        <div className="hidden md:flex items-center justify-end space-x-6 flex-1">
+          {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link) => (
             <a
-              key={index}
+              key={link}
               href={`#${link.toLowerCase()}`}
-              className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+              className="text-white hover:text-primary-foreground transition duration-300"
             >
               {link}
             </a>
           ))}
-          <Button className="bg-ramhacks-orange hover:bg-ramhacks-navy transition-colors">
+          <Button className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors">
             Register Now
           </Button>
         </div>
@@ -46,7 +46,8 @@ export const Navbar: React.FC = () => {
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button
-            className="text-ramhacks-navy focus:outline-none"
+            type="button"
+            className="text-white focus:outline-none"
             onClick={toggleMenu}
           >
             {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -58,25 +59,25 @@ export const Navbar: React.FC = () => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="md:hidden py-4 bg-white px-4 shadow-md"
+            className="md:hidden py-4 bg-secondary px-4 shadow-md w-full"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3 }}
           >
-            <div className="flex flex-col space-y-4">
-              {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link, index) => (
+            <div className="flex flex-col items-center space-y-4">
+              {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link) => (
                 <a
-                  key={index}
+                  key={link}
                   href={`#${link.toLowerCase()}`}
-                  className="text-ramhacks-navy hover:text-ramhacks-orange transition duration-300"
+                  className="text-white hover:text-muted-foreground transition duration-300 w-full text-center"
                   onClick={() => setIsOpen(false)}
                 >
                   {link}
                 </a>
               ))}
               <Button
-                className="bg-ramhacks-orange hover:bg-ramhacks-navy transition-colors w-full"
+                className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors w-full"
                 onClick={() => setIsOpen(false)}
               >
                 Register Now

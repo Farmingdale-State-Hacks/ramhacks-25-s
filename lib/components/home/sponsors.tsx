@@ -194,8 +194,8 @@ export const Sponsors: React.FC = () => {
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              <Card className="shadow-md hover:shadow-lg transition-shadow border-gray-700 h-full flex flex-col bg-gray-700 dark:bg-gray-800">
-                <CardHeader className={`${level.color} text-center pb-6 rounded-t-lg`}>
+              <Card className="shadow-md hover:shadow-lg transition-shadow border-gray-700 h-full flex pb-6 pt-0  flex-col bg-gray-700 dark:bg-gray-800">
+                <CardHeader className={`${level.color} text-center py-6 rounded-t-lg`}>
                   <CardTitle className="text-2xl font-bold text-gray-200">
                     {level.title}
                   </CardTitle>

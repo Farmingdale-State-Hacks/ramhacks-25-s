@@ -1,58 +1,72 @@
 import { createMiddleware } from "@tanstack/react-start";
-import { rateLimit } from "@tanstack/pacer";
 import {
   getWebRequest,
   setResponseHeaders,
   setResponseStatus,
 } from "@tanstack/react-start/server";
-import { Logger } from "~/lib/utils";
+
+const rateLimits = new Map<string, { count: number; resetTime: number }>();
 
 export const rateLimiter = createMiddleware().server(async ({ next }) => {
   try {
     const request = getWebRequest();
     if (!request) return next();
 
-    // Create rate-limited handler with proper typing
-    const limitedHandler = rateLimit(
-      async (userId: string) => {
-        // Add rate limit headers before proceeding
-        const remaining = ;
-        const reset = limitedHandler.getResetTime(userId);
+    const ip =
+      request.headers.get("CF-Connecting-IP") ||
+      request.headers.get("X-Forwarded-For")?.split(",")[0].trim() ||
+      "unknown-ip";
 
-        setResponseHeaders({
-          "X-RateLimit-Limit": "100",
-          "X-RateLimit-Remaining": remaining.toString(),
-          "X-RateLimit-Reset": reset.toString(),
-        });
+    const RATE_LIMIT = 100;
+    const WINDOW_MS = 60_000; // 1 minute
 
-        return next();
-      },
-      {
-        limit: 100,
-        window: 60_000,
-        onReject: ({ msUntilNextWindow }) => {
-          setResponseStatus(429);
-          setResponseHeaders({
-            "Retry-After": Math.ceil(msUntilNextWindow / 1000).toString(),
-          });
-          return next({ sendContext: { error: "Too many requests" } });
-        }
-      }
-    );
+    const now = Date.now();
 
-    const userId = request.headers.get("x-user-id");
-    if (!userId) {
-      setResponseStatus(401);
-      return next({ sendContext: { error: "User ID is required" } });
+    const entry = rateLimits.get(ip) || { count: 0, resetTime: now + WINDOW_MS };
+
+    if (now > entry.resetTime) {
+      entry.count = 0;
+      entry.resetTime = now + WINDOW_MS;
     }
 
-    // Execute the rate-limited handler
-    return await limitedHandler(userId);
+    if (entry.count >= RATE_LIMIT) {
+      const retryAfter = Math.ceil((entry.resetTime - now) / 1000);
+
+      setResponseStatus(429);
+      setResponseHeaders({
+        "Retry-After": retryAfter.toString(),
+        "Content-Type": "application/json",
+      });
+
+      return next({
+        sendContext: {
+          error: "Too Many Requests",
+          message: `Rate limit exceeded. Try again in ${retryAfter} seconds.`,
+          retryAfter,
+        }
+      });
+    }
+
+    entry.count++;
+    rateLimits.set(ip, entry);
+
+    setResponseHeaders({
+      "X-RateLimit-Limit": RATE_LIMIT.toString(),
+      "X-RateLimit-Remaining": (RATE_LIMIT - entry.count).toString(),
+      "X-RateLimit-Reset": Math.floor(entry.resetTime / 1000).toString(),
+    });
+
+    return next();
 
   } catch (error) {
     console.error("Rate limiting error:", error);
     setResponseStatus(500);
-    return next({ sendContext: { error: "Internal server error" } });
+    return next({
+      sendContext: {
+        error: "Internal Server Error",
+        message: "An unexpected error occurred",
+      }
+    });
   }
 });
 

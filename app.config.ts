@@ -12,7 +12,7 @@ const config = defineConfig({
       sourcemap: "hidden",
       chunkSizeWarningLimit: (1024 * 2) ** 2, // Increased from default 500kb to 1000kb
       rollupOptions: {
-        maxParallelFileOps: 20,
+        maxParallelFileOps: 40,
       },
       // rollupOptions: {
       // 		output: {

@@ -71,7 +71,7 @@ const config = defineConfig({
      * preset: "cloudflare-pages",
      * unenv: cloudflare,
      */
-     preset: "node",
+    preset: "vercel",
   },
 } satisfies TanStackStartInputConfig);
 

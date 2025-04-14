@@ -5,7 +5,7 @@
   "scripts": {
     "auth": "pnpm dlx @better-auth/cli@latest",
     "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./lib/server/schema/auth.schema.ts && prettier --write ./lib/server/schema/auth.schema.ts",
-    "build": "vinxi build --preset node",
+    "build": "bun install && vinxi build --preset vercel",
     "db": "drizzle-kit",
     "dev": "vinxi dev",
     "format": "prettier --write .",
@@ -63,6 +63,7 @@
     "dompurify": "^3.2.5",
     "drizzle-orm": "^0.41.0",
     "embla-carousel-react": "^8.6.0",
+    "esbuild": "^0.25.2",
     "eslint-plugin-react-compiler": "^19.0.0-beta-e993439-20250405",
     "input-otp": "^1.4.2",
     "lucide-react": "^0.487.0",

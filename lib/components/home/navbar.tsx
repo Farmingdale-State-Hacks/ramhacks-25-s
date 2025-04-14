@@ -2,7 +2,6 @@ import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
 import type React from "react";
 import { useState } from "react";
-import { Button } from "../ui/button";
 import { motion, AnimatePresence } from "motion/react";
 import ThemeToggle from "../theme-toggle";
 

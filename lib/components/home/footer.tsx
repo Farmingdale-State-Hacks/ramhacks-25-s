@@ -89,14 +89,14 @@ export const Footer: React.FC = () => {
             <h3 className="font-bold text-lg mb-4">Participating Clubs</h3>
             <ul className="space-y-2">
               {[
-                "Supporting Women in Computing",
-                "Google Developer Group",
-                "Cybersecurity Club",
-                "Artificial Intelligence Club",
+                { name: "Supporting Women in Computing", link: "https://farmingdale.campuslabs.com/engage/organization/swic" },
+                { name: "Google Developer Group", link: "https://farmingdale.campuslabs.com/engage/organization/farmingdalegdsc" },
+                { name: "Cybersecurity Club", link: "https://farmingdale.campuslabs.com/engage/organization/csc" },
+                { name: "Artificial Intelligence Club", link: "https://farmingdale.campuslabs.com/engage/organization/aic" },
               ].map((club, index) => (
-                <li key={`${club}-${+index}`}>
-                  <a href="#" className="hover:text-fshacks-orange transition-colors">
-                    {club}
+                <li key={`${club.name}-${+index}`}>
+                  <a href={club.link} className="hover:text-fshacks-orange transition-colors" target="_blank" rel="noopener noreferrer">
+                    {club.name}
                   </a>
                 </li>
               ))}

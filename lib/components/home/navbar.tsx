@@ -40,7 +40,7 @@ export const Navbar: React.FC = () => {
             </a>
           ))}
           <ThemeToggle />
-          <a href="https://forms.gle/Xp6nnGfTPvzb7hFM9" className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors" target="_blank" rel="noopener noreferrer">
+          <a href="https://forms.gle/Xp6nnGfTPvzb7hFM9" className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors p-2 rounded-md" target="_blank" rel="noopener noreferrer">
             Register Now
           </a>
         </div>
@@ -78,12 +78,14 @@ export const Navbar: React.FC = () => {
                   {link}
                 </a>
               ))}
-              <Button
-                className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors w-full"
-                onClick={() => setIsOpen(false)}
+              <a
+                href="https://forms.gle/Xp6nnGfTPvzb7hFM9"
+                className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors w-full p-2 rounded-md"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Register Now
-              </Button>
+              </a>
             </div>
           </motion.div>
         )}

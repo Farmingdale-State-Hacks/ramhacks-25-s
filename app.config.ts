@@ -1,15 +1,30 @@
-import tailwindcss from "@tailwindcss/vite";
-import { defineConfig } from "@tanstack/react-start/config";
-import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
-import tsConfigPaths from "vite-tsconfig-paths";
-import { wrapVinxiConfigWithSentry } from "@sentry/tanstackstart-react";
 import MillionLint from "@million/lint";
+import { wrapVinxiConfigWithSentry } from "@sentry/tanstackstart-react";
+import tailwindcss from "@tailwindcss/vite";
+import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
+import { defineConfig } from "@tanstack/react-start/config";
 import { VitePWA } from "vite-plugin-pwa";
+import tsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({
   vite: {
     build: {
       sourcemap: "hidden",
+      chunkSizeWarningLimit: (1024 * 2) ** 2, // Increased from default 500kb to 1000kb
+      // rollupOptions: {
+      // 		output: {
+      // 				manualChunks: {
+      // 						vendor: [
+      // 								'@tanstack/react-query',
+      // 								'@tanstack/react-query-devtools',
+      // 						],
+      // 						ui: [
+      // 								'react',
+      // 								'react-dom',
+      // 						],
+      // 				},
+      // 		},
+      // },
     },
     plugins: [
       tsConfigPaths({
@@ -17,23 +32,21 @@ const config = defineConfig({
       }),
       tailwindcss(),
       MillionLint.vite({
-        react: "19"
+        react: "19",
       }),
       VitePWA({
-				workbox: {
-					cleanupOutdatedCaches: true,
-					globPatterns: ["**/*"],
-				},
-				registerType: "autoUpdate",
-				injectRegister: "auto",
-				includeAssets: ["**/*"],
-			}),
+        workbox: {
+          cleanupOutdatedCaches: true,
+          globPatterns: ["**/*"],
+          maximumFileSizeToCacheInBytes: ((1024 * 2) ** 2) //
+        },
+        registerType: "autoUpdate",
+        injectRegister: "auto",
+        includeAssets: ["**/*"],
+      }),
     ],
     ssr: {
-      external: [
-        "@tanstack/react-query",
-        "@tanstack/react-query-devtools",
-      ],
+      external: ["@tanstack/react-query", "@tanstack/react-query-devtools"],
     },
   },
 
@@ -58,7 +71,7 @@ const config = defineConfig({
      * preset: "cloudflare-pages",
      * unenv: cloudflare,
      */
-    preset: "vercel",
+     preset: "node",
   },
 } satisfies TanStackStartInputConfig);
 

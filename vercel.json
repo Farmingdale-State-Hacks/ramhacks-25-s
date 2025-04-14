@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "dist"
+      }
+    }
+  ],
+  "build": {
+    "env": {
+      "NODE_ENV": "production"
+    },
+    "commands": [
+      "rm -rf node_modules", // Clear node_modules to avoid conflicts
+      "bun install", // Install dependencies using Bun
+      "bun add esbuild@latest", // Explicitly add esbuild to fix missing module
+      "bun run build" // Run the build script
+    ],
+    "hooks": {
+      "postinstall": [
+        "bun add esbuild@latest" // Ensure esbuild is added after installation
+      ]
+    }
+  },
+  "env": {
+    "NODE_ENV": "production" // Add any environment variables you need here
+  }
+}
+

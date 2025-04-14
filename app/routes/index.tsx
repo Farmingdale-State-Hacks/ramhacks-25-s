@@ -1,14 +1,29 @@
 import { Link, createFileRoute, useRouter } from "@tanstack/react-router";
-import ThemeToggle from "~/lib/components/ThemeToggle";
+import { Navbar, Hero, About, Schedule, Clubs, Sponsors, FAQ, Footer } from "~/lib/components/home";
+import ThemeToggle from "~/lib/components/theme-toggle";
 import { Button } from "~/lib/components/ui/button";
-import authClient from "~/lib/utils/auth-client";
 
 export const Route = createFileRoute("/")({
-  component: Home,
+  component: Landing,
   loader: ({ context }) => {
     return { user: context.user };
   },
 });
+
+function Landing() { 
+  return (
+    <div className="min-h-screen flex flex-col">
+      <Navbar />
+      <Hero />
+      <About />
+      <Schedule />
+      <Clubs />
+      <Sponsors />
+      <FAQ />
+      <Footer />
+    </div>
+  );
+}
 
 function Home() {
   const { user } = Route.useLoaderData();

@@ -38,7 +38,7 @@ const config = defineConfig({
         workbox: {
           cleanupOutdatedCaches: true,
           globPatterns: ["**/*"],
-          maximumFileSizeToCacheInBytes: ((1024 * 2) ** 2) // 
+          maximumFileSizeToCacheInBytes: ((1024 * 2) ** 2) //
         },
         registerType: "autoUpdate",
         injectRegister: "auto",
@@ -71,7 +71,7 @@ const config = defineConfig({
      * preset: "cloudflare-pages",
      * unenv: cloudflare,
      */
-    preset: "vercel",
+     preset: "node",
   },
 } satisfies TanStackStartInputConfig);
 

@@ -116,10 +116,10 @@ export const FAQ: React.FC = () => {
             Still have questions? Feel free to reach out!
           </p>
           <a
-            href="mailto:info@fshacks.org"
+            href="mailto:ferdt4@farmingdale.edu"
             className="text-primary-color hover:text-accent-color transition-colors font-medium"
           >
-            info@fshacks.org
+            ferdt4@farmingdale.edu
           </a>
         </motion.div>
       </div>

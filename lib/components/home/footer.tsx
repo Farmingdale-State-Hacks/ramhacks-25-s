@@ -43,10 +43,10 @@ export const Footer: React.FC = () => {
             <div className="flex items-center mb-2">
               <Mail className="mr-2 text-ramhacks-orange" size={18} />
               <a
-                href="mailto:info@ramhacks.org"
+                href="mailto:ferdt4@farmingdale.edu"
                 className="hover:text-ramhacks-orange transition-colors"
               >
-                info@ramhacks.org
+                ferdt4@farmingdale.edu
               </a>
             </div>
             <div className="flex items-center">

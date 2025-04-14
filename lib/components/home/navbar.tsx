@@ -4,6 +4,7 @@ import type React from "react";
 import { useState } from "react";
 import { Button } from "../ui/button";
 import { motion, AnimatePresence } from "motion/react";
+import ThemeToggle from "../theme-toggle";
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,9 +39,10 @@ export const Navbar: React.FC = () => {
               {link}
             </a>
           ))}
-          <Button className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors">
+          <ThemeToggle />
+          <a href="https://forms.gle/Xp6nnGfTPvzb7hFM9" className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors" target="_blank" rel="noopener noreferrer">
             Register Now
-          </Button>
+          </a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -90,5 +92,5 @@ export const Navbar: React.FC = () => {
   );
 };
 
-N avbar.displayName = "Navbar";
+Navbar.displayName = "Navbar";
 export default Navbar;

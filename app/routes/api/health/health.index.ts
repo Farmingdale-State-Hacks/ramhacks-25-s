@@ -1,7 +1,7 @@
 import { createAPIFileRoute } from "@tanstack/react-start/api";
 import { getWebRequest } from "@tanstack/react-start/server";
 
-export const APIRoute = createAPIFileRoute("/api/health/$")({
+export const APIRoute = createAPIFileRoute("/api/health/health")({
   GET: () => {
     return new Response("ok", {
       status: 200,

@@ -62,7 +62,8 @@ export const FAQ: React.FC = () => {
           transition={{ duration: 0.5 }}
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-800 dark:text-gray-100 mb-4">
-            Frequently Asked Questions
+            Frequently Asked
+            <span className="text-primary"> Questions</span>
           </h2>
           <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Have questions about FSHacks? Find answers to common questions below.

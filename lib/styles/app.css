@@ -8,6 +8,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+
 :root {
   --background: oklch(0.25 0.04 196.47); /* #051821 */
   --foreground: oklch(0.94 0.16 80.1); /* #F8BC24 */
@@ -140,9 +142,32 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
+
+    padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
+      env(safe-area-inset-left);
+  }
+
+  :host,
+  html {
+    @apply leading-7 text-base antialiased tabular-nums transition-all duration-300 list-none scroll-smooth;
+
+    text-size-adjust: 100%;
+    font-feature-settings: normal;
+    font-variation-settings: normal;
+    tab-size: 4;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  img {
+    @apply select-none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
   }
 }

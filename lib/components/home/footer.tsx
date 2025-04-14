@@ -5,7 +5,7 @@ import type React from "react";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="bg-ramhacks-navy text-white py-12">
+    <footer className="bg-navy-500 text-white py-12">
       <div className="container mx-auto px-4">
         <motion.div
           className="grid grid-cols-1 md:grid-cols-4 gap-8"
@@ -26,7 +26,7 @@ export const Footer: React.FC = () => {
           >
             <Link to="/" className="flex items-center mb-4">
               <img
-                src="/assets/images/logo.png>>>>>>> master
+                src="/assets/images/logo.png"
                 alt="RamHacks Logo"
                 className="h-10 w-auto mr-2"
               />
@@ -51,8 +51,8 @@ export const Footer: React.FC = () => {
             </div>
             <div className="flex items-center">
               <LinkIcon className="mr-2 text-ramhacks-orange" size={18} />
-              <a href="#" className="hover:text-ramhacks-orange transition-colors">
-                www.ramhacks.org
+              <a href="/" className="hover:text-ramhacks-orange transition-colors">
+                www.ramhacks.com
               </a>
             </div>
           </motion.div>
@@ -67,7 +67,7 @@ export const Footer: React.FC = () => {
             <h3 className="font-bold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
               {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link, index) => (
-                <li key={index}>
+                <li key={`${link}-${+index}`}>
                   <a
                     href={`#${link.toLowerCase()}`}
                     className="hover:text-fshacks-orange transition-colors"
@@ -94,7 +94,7 @@ export const Footer: React.FC = () => {
                 "Cybersecurity Club",
                 "Artificial Intelligence Club",
               ].map((club, index) => (
-                <li key={index}>
+                <li key={`${club}-${+index}`}>
                   <a href="#" className="hover:text-fshacks-orange transition-colors">
                     {club}
                   </a>
@@ -118,7 +118,7 @@ export const Footer: React.FC = () => {
                 "Volunteer Opportunities",
                 "Mentor at FSHacks",
               ].map((action, index) => (
-                <li key={index}>
+                <li key={`${action}-${+index}`}>
                   <a href="#" className="hover:text-fshacks-orange transition-colors">
                     {action}
                   </a>

@@ -326,7 +326,9 @@ export const Schedule: React.FC = () => {
               Join us for an unforgettable weekend of innovation!
             </h3>
             <div className="flex justify-center">
-              <Button className="rounded-full px-8 py-6 text-lg bg-primary hover:bg-primary/90 text-white shadow-lg">
+              <Button className="rounded-full px-8 py-6 text-lg bg-primary hover:bg-primary/90 text-white shadow-lg cursor-pointer" onClick={() => {
+                window.open("https://forms.gle/Xp6nnGfTPvzb7hFM9", "_blank", "noreferrer");
+              }}>
                 Register Now
               </Button>
             </div>

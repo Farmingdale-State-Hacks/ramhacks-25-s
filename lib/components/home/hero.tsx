@@ -145,7 +145,9 @@ export const Hero: React.FC = () => {
           transition={{ duration: 0.7, delay: 0.8 }}
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-            <Button className="bg-ramhacks-orange hover:bg-white hover:text-ramhacks-orange text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-ramhacks-orange/20 flex items-center">
+            <Button className="bg-orange-500 hover:bg-white hover:text-orange-500 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-orange-500/20 flex items-center cursor-pointer" onClick={() => {
+              window.open("https://forms.gle/Xp6nnGfTPvzb7hFM9", "_blank", "noreferrer");
+            }}>
               Register Now
               <ChevronRight className="ml-2 h-5 w-5" />
             </Button>
@@ -154,7 +156,10 @@ export const Hero: React.FC = () => {
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-ramhacks-navy text-lg px-8 py-6 rounded-full shadow-lg flex items-center"
+              className="border-2 border-white text-white hover:bg-white hover:text-navy-800 hover:text-blue-900 text-lg px-8 py-6 rounded-full shadow-lg flex items-center"
+              onClick={() => {
+                window.open("mailto:ferdt4@farmingdale.edu", "_blank", "noreferrer");
+              }}
             >
               Sponsor Us
               <ChevronRight className="ml-2 h-5 w-5" />

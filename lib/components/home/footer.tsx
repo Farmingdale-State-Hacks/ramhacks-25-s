@@ -84,7 +84,7 @@ export const Footer: React.FC = () => {
                 <li key={`${link}-${+index}`}>
                   <a
                     href={`#${link.toLowerCase()}`}
-                    className="hover:text-fshacks-orange transition-colors"
+                    className="hover:text-ramhacks-orange transition-colors"
                   >
                     {link}
                   </a>
@@ -109,7 +109,7 @@ export const Footer: React.FC = () => {
                 { name: "Artificial Intelligence Club", link: "https://farmingdale.campuslabs.com/engage/organization/aic" },
               ].map((club, index) => (
                 <li key={`${club.name}-${+index}`}>
-                  <a href={club.link} className="hover:text-fshacks-orange transition-colors" target="_blank" rel="noopener noreferrer">
+                  <a href={club.link} className="hover:text-ramhacks-orange transition-colors" target="_blank" rel="noopener noreferrer">
                     {club.name}
                   </a>
                 </li>
@@ -127,14 +127,17 @@ export const Footer: React.FC = () => {
             <h3 className="font-bold text-lg mb-4">Get Involved</h3>
             <ul className="space-y-2">
               {[
-                "Register as Participant",
-                "Become a Sponsor",
-                "Volunteer Opportunities",
-                "Mentor at FSHacks",
+                { name: "Register as Participant", link: "https://forms.gle/Xp6nnGfTPvzb7hFM9" },
+                { name: "Become a Sponsor", link: "mailto:ferdt4@farmingdale.edu" },
               ].map((action, index) => (
-                <li key={`${action}-${+index}`}>
-                  <a href="#" className="hover:text-fshacks-orange transition-colors">
-                    {action}
+                <li key={`${action.name}-${+index}`}>
+                  <a
+                    href={action.link}
+                    className="hover:text-ramhacks-orange transition-colors"
+                    target={action.link.startsWith("mailto") ? "_blank" : undefined}
+                    rel={action.link.startsWith("mailto") ? "noreferrer" : undefined}
+                  >
+                    {action.name}
                   </a>
                 </li>
               ))}

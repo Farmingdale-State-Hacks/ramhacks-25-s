@@ -1,16 +1,13 @@
 User-agent: Googlebot
 Allow: /
 Disallow: /api/
-Disallow: /legal
 
 User-agent: Applebot
 Allow: /
 Disallow: /api/
-Disallow: /legal
 
 User-agent: Bingbot
 Allow: /
 Disallow: /api/
-Disallow: /legal
 
-Sitemap: https://ramhacks.dev/sitemap.xml
+Sitemap: https://ramhacks.com/sitemap.xml

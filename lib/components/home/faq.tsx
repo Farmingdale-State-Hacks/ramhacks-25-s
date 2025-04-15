@@ -47,7 +47,7 @@ export const FAQ: React.FC = () => {
     {
       question: "How can my company sponsor FSHacks?",
       answer:
-        "Please contact us at sponsors@fshacks.org to discuss sponsorship opportunities tailored to your organization's needs.",
+        "Please contact us at ferdt4@farmingdale.edu to discuss sponsorship opportunities tailored to your organization's needs.",
     },
   ];
 

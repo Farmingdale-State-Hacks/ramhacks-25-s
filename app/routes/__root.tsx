@@ -60,11 +60,19 @@ export const Route = wrapCreateRootRouteWithSentry(
         },
         {
           name: "msapplication-TileImage",
-          content: `${import.meta.env.VITE_PUBLIC_URL}/browserconfig.xml`,
+          content: `${import.meta.env.VITE_PUBLIC_URL}/windows11/SmallTile.scale-100.png`,
         },
         {
           name: "manifest",
           content: `${import.meta.env.VITE_PUBLIC_URL}/manifest.webmanifest`,
+        },
+        {
+          name: "service-worker",
+          content: `${import.meta.env.VITE_PUBLIC_URL}/sw.js`,
+        },
+        {
+          name: "robots",
+          content: "index, follow, noodp",
         },
         ...seo({
           title: app.name,
@@ -73,7 +81,10 @@ export const Route = wrapCreateRootRouteWithSentry(
           image: app.image,
         })
       ],
-      links: [{ rel: "stylesheet", href: appCss }],
+      links: [
+        { rel: "stylesheet", href: appCss },
+        { rel: "canonical", href: `${import.meta.env.VITE_BASE_URL}` }
+      ],
     }),
     component: RootComponent,
   }),

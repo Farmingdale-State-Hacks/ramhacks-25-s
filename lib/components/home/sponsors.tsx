@@ -302,7 +302,12 @@ export const Sponsors: React.FC = () => {
             We're happy to discuss custom sponsorship packages that align with your
             organization's goals and create a mutually beneficial partnership.
           </p>
-          <Button className="bg-amber-600 hover:bg-amber-500 transition-colors text-white px-8 py-6 text-lg rounded-full shadow-lg">
+          <Button
+            className="bg-amber-600 hover:bg-amber-500 transition-colors text-white px-8 py-6 text-lg rounded-full shadow-lg cursor-pointer"
+            onClick={() => {
+              window.open("mailto:ferdt4@farmingdale.edu", "_blank", "noreferrer");
+            }}
+          >
             Contact Us About Sponsorship
           </Button>
         </motion.div>

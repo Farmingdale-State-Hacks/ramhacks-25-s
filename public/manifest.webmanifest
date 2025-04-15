@@ -11,7 +11,6 @@
   "display": "standalone",
   "theme_color": "#266867",
   "background_color": "#051821",
-  "categories": ["education", "technology", "hackathon"],
   "orientation": "portrait-primary",
   "display_override": ["minimal-ui", "browser", "fullscreen", "window-controls-overlay"],
   "service_worker": "/sw.js",

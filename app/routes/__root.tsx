@@ -21,11 +21,11 @@ const TanStackRouterDevtools =
   process.env.NODE_ENV === "production"
     ? () => null // Render nothing in production
     : lazy(() =>
-        // Lazy load in development
-        import("@tanstack/router-devtools").then((res) => ({
-          default: res.TanStackRouterDevtools,
-        })),
-      );
+      // Lazy load in development
+      import("@tanstack/router-devtools").then((res) => ({
+        default: res.TanStackRouterDevtools,
+      })),
+    );
 
 export const Route = wrapCreateRootRouteWithSentry(
   createRootRouteWithContext<{ queryClient: QueryClient }>()({
@@ -41,6 +41,30 @@ export const Route = wrapCreateRootRouteWithSentry(
         {
           name: "viewport",
           content: "width=device-width, initial-scale=1",
+        },
+        {
+          name: "theme-color",
+          content: "#266867",
+        },
+        {
+          name: "color-scheme",
+          content: "light dark",
+        },
+        {
+          name: "supported-color-schemes",
+          content: "light dark",
+        },
+        {
+          name: "msapplication-TileColor",
+          content: "#266867",
+        },
+        {
+          name: "msapplication-TileImage",
+          content: `${import.meta.env.VITE_PUBLIC_URL}/browserconfig.xml`,
+        },
+        {
+          name: "manifest",
+          content: `${import.meta.env.VITE_PUBLIC_URL}/manifest.webmanifest`,
         },
         ...seo({
           title: app.name,

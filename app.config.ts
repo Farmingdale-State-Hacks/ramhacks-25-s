@@ -12,22 +12,8 @@ const config = defineConfig({
       sourcemap: "hidden",
       chunkSizeWarningLimit: (1024 * 2) ** 2, // Increased from default 500kb to 1000kb
       rollupOptions: {
-        maxParallelFileOps: 300,
+        maxParallelFileOps: 20, // Reduced from 300 to 20
       },
-      // rollupOptions: {
-      // 		output: {
-      // 				manualChunks: {
-      // 						vendor: [
-      // 								'@tanstack/react-query',
-      // 								'@tanstack/react-query-devtools',
-      // 						],
-      // 						ui: [
-      // 								'react',
-      // 								'react-dom',
-      // 						],
-      // 				},
-      // 		},
-      // },
     },
     plugins: [
       tsConfigPaths({
@@ -36,6 +22,13 @@ const config = defineConfig({
       tailwindcss(),
       MillionLint.vite({
         react: "19",
+        lite: true, // Enable lite mode for faster builds
+        filter: {
+          // Limit scope to only your app components
+          include: "**/components/**/*.{tsx,jsx}",
+          exclude: "**/node_modules/**/*"
+        },
+        optimizeDOM: false, // Disable DOM optimization to reduce complexity
       }),
       VitePWA({
         workbox: {
@@ -50,6 +43,9 @@ const config = defineConfig({
     ],
     ssr: {
       external: ["@tanstack/react-query", "@tanstack/react-query-devtools"],
+    },
+    esbuild: {
+      drop: ['console', 'debugger'], // Drop console statements in production
     },
   },
 

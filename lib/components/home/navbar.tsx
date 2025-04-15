@@ -39,7 +39,12 @@ export const Navbar: React.FC = () => {
             </a>
           ))}
           <ThemeToggle />
-          <a href="https://forms.gle/Xp6nnGfTPvzb7hFM9" className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors p-2 rounded-md" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://forms.gle/Xp6nnGfTPvzb7hFM9"
+            className="bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors p-2 rounded-md"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             Register Now
           </a>
         </div>
@@ -79,7 +84,7 @@ export const Navbar: React.FC = () => {
               ))}
               <a
                 href="https://forms.gle/Xp6nnGfTPvzb7hFM9"
-                className="bg-primary text-white hover:bg-destructive hover:text-destructive-foreground transition-colors w-full p-2 rounded-md"
+                className="bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors w-full p-2 rounded-md"
                 target="_blank"
                 rel="noopener noreferrer"
               >

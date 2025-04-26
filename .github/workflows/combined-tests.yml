@@ -38,6 +38,9 @@ jobs:
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps
 
+      - name: Increase file descriptor limit
+        run: ulimit -n 65536
+
       - name: Build application
         run: bun run build
 

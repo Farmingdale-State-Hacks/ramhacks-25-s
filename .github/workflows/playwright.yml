@@ -45,6 +45,9 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Increase file descriptor limit
+        run: ulimit -n 65536
+
       - name: Build application
         run: bun run build
 

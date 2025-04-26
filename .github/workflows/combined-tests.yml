@@ -155,8 +155,22 @@ jobs:
           name: build-combined
           path: .output
 
+      - name: Start server for testing (background)
+        run: |
+          bun run start &
+          echo "Started server with PID $!"
+          sleep 10
+
+      - name: Wait for server to be ready
+        run: |
+          echo "Waiting for server to be available..."
+          timeout 120s bash -c 'until curl -s http://localhost:3000 > /dev/null; do sleep 1; done'
+          echo "Server is up and running"
+
       - name: Run Playwright tests
-        run: bun run test:e2e
+        run: bunx playwright test --skip-server-start
+        env:
+          PLAYWRIGHT_TIMEOUT: 120000
 
       - name: Upload test results
         if: always()

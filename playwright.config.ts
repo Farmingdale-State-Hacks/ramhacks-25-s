@@ -17,6 +17,11 @@ import { defineConfig, devices } from '@playwright/test';
 // require('dotenv').config();
 
 /**
+ * Parse command line arguments to check for --skip-server-start flag
+ */
+const skipServerStart = process.argv.includes('--skip-server-start');
+
+/**
  * Main Playwright configuration object that defines all testing parameters and behaviors
  *
  * @property {string} testDir - Directory containing test files
@@ -48,6 +53,9 @@ export default defineConfig({
   // Use HTML reporter for visual test results
   reporter: 'html',
 
+  // Global timeout for tests - using environment variable or default to 60s
+  timeout: Number(process.env.PLAYWRIGHT_TIMEOUT) || 60000,
+
   /**
    * Global test configuration applied to all test runs
    * @see https://playwright.dev/docs/api/class-testoptions
@@ -58,6 +66,9 @@ export default defineConfig({
 
     // Trace recording configuration for debugging failed tests
     trace: 'on-first-retry',
+
+    // Action timeout - longer for CI environments
+    actionTimeout: process.env.CI ? 30000 : 10000,
   },
 
   /**
@@ -110,14 +121,20 @@ export default defineConfig({
   /**
    * Development server configuration
    * Starts a local dev server before running tests
+   * Can be disabled with --skip-server-start flag for CI environments
+   * where the server is started separately
    *
    * @property {string} command - Command to start the dev server
    * @property {string} url - URL where the server will be available
    * @property {boolean} reuseExistingServer - Whether to reuse an existing server instance
+   * @property {number} timeout - How long to wait for the server to start (ms)
    */
-  webServer: {
-    command: 'bun run dev',
-    url: 'http://127.0.0.1:3000',
-    reuseExistingServer: !process.env.CI,
-  },
+  ...(!skipServerStart ? {
+    webServer: {
+      command: 'bun run dev',
+      url: 'http://127.0.0.1:3000',
+      reuseExistingServer: !process.env.CI,
+      timeout: Number(process.env.PLAYWRIGHT_WEBSERVER_TIMEOUT) || 120000, // 2 minutes to start the server
+    }
+  } : {})
 });

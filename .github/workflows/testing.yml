@@ -75,8 +75,24 @@ jobs:
       - name: Install Playwright Browsers
         run: bunx playwright install --with-deps
 
+      - name: Increase file descriptor limit
+        run: ulimit -n 65536
+
+      - name: Start server for testing (background)
+        run: bun run start &
+        env:
+          SERVER_PID: $!
+
+      - name: Wait for server to be ready
+        run: |
+          echo "Waiting for server to be available..."
+          timeout 120s bash -c 'until curl -s http://localhost:3000 > /dev/null; do sleep 1; done'
+          echo "Server is up and running"
+
       - name: Run Playwright tests
-        run: bun run e2e:ci
+        run: bun run playwright test --skip-server-start
+        env:
+          PLAYWRIGHT_TIMEOUT: 120000
 
       - name: Upload Playwright test results
         if: always()

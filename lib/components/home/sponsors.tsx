@@ -263,7 +263,7 @@ export const Sponsors: React.FC = () => {
                   <ul className="space-y-3">
                     {level.features.map((feature, featureIndex) => (
                       <motion.li
-                        key={`${level.id}-${featureIndex}`}
+                        key={`${level.id}-${+featureIndex}`}
                         initial={{ opacity: 0, x: -10 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}

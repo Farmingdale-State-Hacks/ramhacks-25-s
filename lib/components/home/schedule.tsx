@@ -17,85 +17,92 @@ export const Schedule: React.FC = () => {
 
   // Schedule items for each day
   const firstDaySchedule = [
-    { time: "12:00 PM", event: "Doors Open", description: "Early arrival and setup", category: "logistics" },
     {
-      time: "1:00 PM",
-      event: "Check-in & Registration",
-      description: "Pick up your badge and swag",
+      time: "11:30 AM - 1:00 PM",
+      event: "Check-in & Kickoff",
+      description: "Check-in opens, team formation, and competition begins",
+      category: "main",
+    },
+    {
+      time: "2:00 PM - 3:00 PM",
+      event: "Lunch & Q&A",
+      description: "Enjoy lunch and participate in a Q&A session",
+      category: "food",
+    },
+    {
+      time: "3:00 PM - 4:00 PM",
+      event: "Workshop: CyberSecurity",
+      description: "Learn about the latest cybersecurity techniques and best practices",
+      category: "workshop",
+    },
+    {
+      time: "4:00 PM - 6:00 PM",
+      event: "Competition Continues",
+      description: "Continue working on your projects",
+      category: "main",
+    },
+    {
+      time: "6:00 PM - 7:00 PM",
+      event: "Dinner & Workshop",
+      description: "Dinner served with Google/SWIC workshop",
+      category: "food",
+    },
+    {
+      time: "7:00 PM - 8:00 PM",
+      event: "Day 1 Wrap-up",
+      description: "Begin wrapping up activities for Day 1",
       category: "logistics",
     },
     {
-      time: "2:00 PM",
-      event: "Opening Ceremony",
-      description: "Welcome address and sponsor introductions",
-      category: "main",
+      time: "8:00 PM - 9:00 PM",
+      event: "Progress Submission",
+      description: "Submit your progress and attend closing speeches for Day 1",
+      category: "logistics",
     },
-    {
-      time: "3:00 PM",
-      event: "Team Formation",
-      description: "Find teammates and brainstorm project ideas",
-      category: "main",
-    },
-    { time: "4:00 PM", event: "Hacking Begins", description: "Start building your projects", category: "main" },
-    { time: "6:00 PM", event: "Dinner", description: "Evening meal and networking", category: "food" },
-    {
-      time: "7:00 PM",
-      event: "Workshop: AI Development",
-      description: "Learn about the latest AI tools and techniques",
-      category: "workshop",
-    },
-    {
-      time: "8:30 PM",
-      event: "Workshop: UI/UX Design",
-      description: "Principles of effective user interface design",
-      category: "workshop",
-    },
-    {
-      time: "10:00 PM",
-      event: "Mentor Sessions",
-      description: "Get advice from industry professionals",
-      category: "main",
-    },
-    { time: "11:00 PM", event: "Late Night Snacks", description: "Fuel up for the night ahead", category: "food" },
   ]
 
   const secondDaySchedule = [
-    { time: "8:00 AM", event: "Breakfast", description: "Start the second day with energy", category: "food" },
     {
-      time: "10:00 AM",
-      event: "Hacking Ends",
-      description: "Finalize your projects and prepare presentations",
+      time: "11:30 AM - 1:00 PM",
+      event: "Day 2 Welcome",
+      description: "Welcome back, day 2 instructions, and resume competition",
       category: "main",
     },
     {
-      time: "11:00 AM",
-      event: "Project Presentations",
-      description: "Showcase your work to judges and peers",
+      time: "2:00 PM - 3:00 PM",
+      event: "Lunch & AI Workshop",
+      description: "Lunch served with workshop on AI technologies",
+      category: "food",
+    },
+    {
+      time: "3:00 PM - 5:00 PM",
+      event: "Competition & Warp Workshop",
+      description: "Continue competition with Introduction to Warp workshop (4:00-4:30)",
+      category: "workshop",
+    },
+    {
+      time: "5:00 PM - 6:00 PM",
+      event: "Final Submissions",
+      description: "Turn in final version of projects",
       category: "main",
     },
     {
-      time: "1:00 PM",
-      event: "Judging",
-      description: "Projects are evaluated by our panel of experts",
-      category: "main",
+      time: "6:00 PM - 7:00 PM",
+      event: "Dinner & Judging",
+      description: "Dinner served while judging begins",
+      category: "food",
     },
     {
-      time: "2:30 PM",
-      event: "Closing Ceremony",
-      description: "Awards announcement and final remarks",
-      category: "main",
-    },
-    {
-      time: "4:00 PM",
-      event: "Cleanup & Networking",
-      description: "Final opportunities to connect with peers and mentors",
+      time: "7:00 PM - 8:00 PM",
+      event: "Day 2 Wrap-up",
+      description: "Begin wrapping up activities for Day 2",
       category: "logistics",
     },
     {
-      time: "5:00 PM",
-      event: "Event Officially Ends",
-      description: "Thank you for participating in RamHacks 2025!",
-      category: "logistics",
+      time: "8:00 PM - 9:00 PM",
+      event: "Awards Ceremony",
+      description: "Judging concludes, winners announced, and prizes distributed",
+      category: "main",
     },
   ]
 
@@ -268,7 +275,7 @@ export const Schedule: React.FC = () => {
                 <TableBody>
                   {scheduleItems.map((item, index) => (
                     <TableRow
-                      key={index}
+                      key={`${+index}-${item.time}`}
                       className={`group border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors border-l-4 ${getCategoryColor(
                         item.category,
                       )}`}

@@ -100,7 +100,7 @@ export const Clubs: React.FC = () => {
         >
           {clubs.map((club, index) => (
             <motion.div
-              key={index}
+              key={`${+index}-${club.name}`}
               variants={itemVariants}
               whileHover={{
                 scale: 1.03,

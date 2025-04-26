@@ -11,7 +11,16 @@
     "format": "prettier --write .",
     "lint": "eslint .",
     "start": "vinxi start",
-    "ui": "pnpm dlx shadcn@canary"
+    "ui": "pnpm dlx shadcn@canary",
+    "e2e:ci": "bun run playwright test",
+    "cypress": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:ci": "cypress run --browser chrome",
+    "cypress:run:component": "cypress run --component",
+    "test": "bun run e2e:ci && bun run cypress:ci",
+    "test:e2e": "playwright test",
+    "test:cypress": "cypress run",
+    "test:ci": "bun run test"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20250412.0",

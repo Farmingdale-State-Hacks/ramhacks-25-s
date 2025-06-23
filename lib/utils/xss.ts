@@ -101,7 +101,11 @@ export const validateUserInput = (input: string, maxLength = 500, allowHtml = fa
 
   // Remove HTML tags if not allowed
   if (!allowHtml) {
-    sanitizedInput = sanitizedInput.replace(/<[^>]*>/g, '');
+    let previous;
+    do {
+      previous = sanitizedInput;
+      sanitizedInput = sanitizedInput.replace(/<[^>]*>/g, '');
+    } while (sanitizedInput !== previous);
   }
 
   // Normalize whitespace

@@ -56,7 +56,7 @@
     "@sentry/cli": "^2.43.0",
     "@sentry/react": "^9.12.0",
     "@sentry/tanstackstart-react": "^9.12.0",
-    "@tanstack/pacer": "^0.8.0",
+    "@tanstack/pacer": "^0.9.0",
     "@tanstack/react-query": "^5.73.3",
     "@tanstack/react-query-devtools": "^5.73.3",
     "@tanstack/react-router": "^1.115.3",

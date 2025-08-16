@@ -135,7 +135,7 @@ export class Logger {
   constructor(context: string, options: LoggerOptions = {}) {
     this.context = context;
     this.isServerContext = isServer;
-    this.minLevel = options.minLevel ?? (process.env.NODE_ENV === "production" ? LogLevel.ERROR : LogLevel.ALL);
+    this.minLevel = options.minLevel ?? LogLevel.ALL;
     this.includeTimestamp = options.includeTimestamp ?? true;
     this.shouldColorize = options.colorize ?? this.isServerContext;
   }
@@ -181,7 +181,7 @@ export class Logger {
     if (this.isServerContext) return true;
 
     // Only log client-side in development or if explicitly enabled
-    return process.env.NODE_ENV === "development" || process.env.ENABLE_CLIENT_LOGS === "true";
+    return true;
   }
 
   /**

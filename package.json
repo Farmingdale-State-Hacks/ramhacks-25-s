@@ -104,7 +104,7 @@
     "@types/react": "^19.1.1",
     "@types/react-dom": "^19.1.2",
     "babel-plugin-react-compiler": "latest",
-    "cypress": "^14.3.0",
+    "cypress": "^15.0.0",
     "cypress-repeat": "^2.3.8",
     "cypress-wait-until": "^3.0.2",
     "drizzle-kit": "^0.31.0",

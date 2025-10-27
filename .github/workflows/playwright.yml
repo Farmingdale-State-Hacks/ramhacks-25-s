@@ -61,7 +61,7 @@ jobs:
         run: bunx playwright install --with-deps
 
       - name: Save build folder
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-playwright
           if-no-files-found: error
@@ -117,7 +117,7 @@ jobs:
 
       - name: Upload test results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: playwright-report-${{ matrix.project }}
           path: playwright-report/

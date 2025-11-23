@@ -1,6 +1,6 @@
-# Cypress Tests for RamHacks 2025 Website
+# Cypress Tests for RamHacks 2026 Website
 
-This directory contains end-to-end tests for the RamHacks 2025 website using Cypress.
+This directory contains end-to-end tests for the RamHacks 2026 website using Cypress.
 
 ## Directory Structure
 

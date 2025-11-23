@@ -15,7 +15,7 @@ describe('Home Page', () => {
 
   it('should display the hero section with correct content', () => {
     cy.contains('h1', ramhacksData.name).should('be.visible')
-    cy.contains('2025').should('be.visible')
+    cy.contains('2026').should('be.visible')
     cy.contains('Fueling Innovation at Farmingdale State College').should('be.visible')
 
     // Check for the registration button

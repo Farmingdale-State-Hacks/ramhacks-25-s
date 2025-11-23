@@ -68,7 +68,7 @@ test.describe('Schedule Section', () => {
 
   test('displays the correct hackathon date', async ({ page }) => {
     // Check for the main hackathon date displayed in the schedule section
-    await expect(page.locator('text=April 26-27, 2025')).toBeVisible();
+    await expect(page.locator('text=April 25-26, 2026')).toBeVisible();
   });
 
   test('checks for first and last day events', async ({ page }) => {

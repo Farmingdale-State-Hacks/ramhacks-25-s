@@ -155,7 +155,7 @@ export const Sponsors: React.FC = () => {
             />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold text-gray-800 dark:text-gray-100 mb-6 tracking-tight">
-            Sponsor <span className="text-amber-500">FSHacks 2025</span>
+            Sponsor <span className="text-amber-500">FSHacks 2026</span>
           </h2>
           <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
             Your support helps us create an inspiring environment for students to innovate and solve problems.

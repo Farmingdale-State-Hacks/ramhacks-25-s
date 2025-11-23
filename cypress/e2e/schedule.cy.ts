@@ -1,51 +1,39 @@
 describe('Schedule Section', () => {
   beforeEach(() => {
     cy.visit('/')
-    // Scroll to the Schedule section
-    cy.scrollToSection('Schedule')
-  })
+    // Ensure the schedule section is in view before running tests
+    cy.get('#schedule').scrollIntoView();
+  });
 
-  it('should display the Schedule section title', () => {
-    cy.contains('h2', /Schedule/i).should('be.visible')
-  })
+  it('should display the schedule section title', () => {
+    cy.get('#schedule h2').should('contain', 'Event Schedule');
+  });
 
-  it('should display multiple schedule days or sessions', () => {
-    // Check that we have day tabs or similar elements
-    cy.get('[class*="Tabs"] button').should('have.length.at.least', 1)
-  })
+  it('should display schedule items with times and descriptions', () => {
+    cy.get('#schedule').find('.time').should('have.length.at.least', 1);
+    cy.get('#schedule').find('h3').should('have.length.at.least', 1);
+    cy.get('#schedule').find('p').should('have.length.at.least', 1);
+  });
 
-  it('should be able to switch between schedule days/tabs if multiple exist', () => {
-    // Get all tab elements
-    cy.get('[class*="Tabs"] button').then($tabs => {
-      // If we have more than one tab, test tab switching
-      if ($tabs.length > 1) {
-        // Click the second tab
-        cy.wrap($tabs).eq(1).click()
+  it('should switch between Day 1 and Day 2 schedules', () => {
+    // Initially, Day 1 should be selected
+    cy.contains('button', 'Day 1 (April 25)').should('have.class', 'bg-primary');
+    cy.contains('button', 'Day 2 (April 26)').should('not.have.class', 'bg-primary');
 
-        // Verify it's selected (has active state)
-        cy.wrap($tabs).eq(1).should('have.attr', 'data-state', 'active')
+    // Click on Day 2 button
+    cy.contains('button', 'Day 2 (April 26)').click();
 
-        // First tab should not be active anymore
-        cy.wrap($tabs).eq(0).should('not.have.attr', 'data-state', 'active')
-      } else {
-        // Skip this test if there's only one tab
-        cy.log('Only one tab found, skipping tab switching test')
-      }
-    })
-  })
+    // Now Day 2 should be selected and Day 1 not
+    cy.contains('button', 'Day 1 (April 25)').should('not.have.class', 'bg-primary');
+    cy.contains('button', 'Day 2 (April 26)').should('have.class', 'bg-primary');
+  });
 
-  it('should display schedule events with times and descriptions', () => {
-    // Look for time elements in the schedule
-    cy.get('[class*="TabsContent"] [class*="time"], [class*="TabsContent"] time, [class*="schedule"] time')
-      .should('exist')
+  it('should display the correct hackathon date in the button labels', () => {
+    cy.contains('button', 'Day 1 (April 25)').should('exist');
+    cy.contains('button', 'Day 2 (April 26)').should('exist');
+  });
 
-    // Look for event titles or descriptions
-    cy.get('[class*="TabsContent"] h3, [class*="TabsContent"] h4, [class*="schedule"] h3')
-      .should('exist')
-  })
-
-  it('should display the correct date for the hackathon', () => {
-    // Check for the specific date mentioned in the heroes.tsx file
-    cy.contains('April 26-27, 2025').should('exist')
-  })
-})
+  it('should display the overview text with the correct year', () => {
+    cy.contains('Join us for 29 hours of coding, learning, and innovation. Here\'s what you can expect at RamHacks 2026.').should('exist');
+  });
+});

@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
             </p>
             <div className="flex items-center mb-2">
               <Calendar className="mr-2 text-ramhacks-orange" size={18} />
-              <span>April 26, 2025</span>
+              <span>April 25, 2026</span>
             </div>
             <div className="flex items-center mb-2">
               <Mail className="mr-2 text-ramhacks-orange" size={18} />

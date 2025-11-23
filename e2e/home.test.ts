@@ -29,7 +29,7 @@ test.describe('Home Page', () => {
 
   test('displays date, location and participant information', async ({ page }) => {
     // Check for event details
-    await expect(page.locator('text=April 26-27, 2025')).toBeVisible();
+    await expect(page.locator('text=April 25-26, 2026')).toBeVisible();
     await expect(page.locator('text=Farmingdale Campus')).toBeVisible();
     await expect(page.locator('text=150+ Participants')).toBeVisible();
   });

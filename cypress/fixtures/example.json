@@ -1,18 +1,6 @@
 {
-  "name": "RamHacks 2025",
-  "location": "Farmingdale State College",
-  "date": "April 26-27, 2025",
-  "participants": 150,
-  "sections": [
-    "hero",
-    "about",
-    "schedule",
-    "clubs",
-    "sponsors",
-    "faq"
-  ],
-  "contacts": {
-    "sponsor": "ferdt4@farmingdale.edu",
-    "registration": "https://forms.gle/Xp6nnGfTPvzb7hFM9"
-  }
+  "name": "RamHacks 2026",
+  "email": "hello@cypress.io",
+  "body": "Fixtures are a great way to mock data for responses to routes",
+  "date": "April 25-26, 2026"
 }

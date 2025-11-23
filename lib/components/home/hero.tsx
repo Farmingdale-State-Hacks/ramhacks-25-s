@@ -78,7 +78,7 @@ export const Hero: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          RamHacks <span className="text-ramhacks-orange">2025</span>
+          RamHacks <span className="text-ramhacks-orange">2026</span>
           <motion.div
             className="absolute -top-6 -right-6 text-ramhacks-orange"
             initial={{ opacity: 0, scale: 0 }}
@@ -119,7 +119,7 @@ export const Hero: React.FC = () => {
             <div className="bg-white/10 rounded-full p-3 mb-2">
               <Calendar className="h-6 w-6 text-ramhacks-orange" />
             </div>
-            <span className="text-xl font-medium">April 26-27, 2025</span>
+            <span className="text-xl font-medium">April 25-26, 2026</span>
           </motion.div>
 
           <motion.div variants={fadeInUp} className="flex flex-col items-center">

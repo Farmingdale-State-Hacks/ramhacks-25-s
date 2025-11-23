@@ -8,9 +8,9 @@ import { motion } from "framer-motion"
 import { Calendar, Clock } from "lucide-react"
 
 export const Schedule: React.FC = () => {
-  // Define dates for the hackathon (April 26-27, 2025)
-  const hackathonStartDate = new Date(2025, 3, 26)
-  const hackathonEndDate = new Date(2025, 3, 27)
+  // Define dates for the hackathon (April 25-26, 2026)
+  const hackathonStartDate = new Date(2026, 3, 25)
+  const hackathonEndDate = new Date(2026, 3, 26)
 
   // State for selected date
   const [selectedDate, setSelectedDate] = useState<Date>(hackathonStartDate)
@@ -183,7 +183,7 @@ export const Schedule: React.FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.3 }}
           >
-            Join us for 29 hours of coding, learning, and innovation. Here's what you can expect at RamHacks 2025.
+            Join us for 29 hours of coding, learning, and innovation. Here's what you can expect at RamHacks 2026.
           </motion.p>
         </div>
 
@@ -205,7 +205,7 @@ export const Schedule: React.FC = () => {
               onClick={() => setSelectedDate(hackathonStartDate)}
             >
               <Calendar className="mr-2 h-5 w-5" />
-              Day 1 (April 26)
+              Day 1 (April 25)
             </Button>
             <Button
               variant={selectedDate.getDate() === hackathonEndDate.getDate() ? "default" : "outline"}
@@ -216,7 +216,7 @@ export const Schedule: React.FC = () => {
               onClick={() => setSelectedDate(hackathonEndDate)}
             >
               <Calendar className="mr-2 h-5 w-5" />
-              Day 2 (April 27)
+              Day 2 (April 26)
             </Button>
           </motion.div>
 

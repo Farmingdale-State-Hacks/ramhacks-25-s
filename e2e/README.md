@@ -1,6 +1,6 @@
-# Playwright Tests for RamHacks 2025 Website
+# Playwright Tests for RamHacks 2026 Website
 
-This directory contains end-to-end tests for the RamHacks 2025 website using Playwright.
+This directory contains end-to-end tests for the RamHacks 2026 website using Playwright.
 
 ## Test Structure
 

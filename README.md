@@ -64,7 +64,7 @@
 The **RamHacks '25 Website** is the official online platform for the RamHacks 2025 hackathon, organized by Farmingdale State Hacks. This project serves as the central hub for all event-related information, aiming to provide a seamless and engaging experience for participants, sponsors, and organizers.
 
 **Purpose & Goals:**
-*   **Inform:** Provide comprehensive details about RamHacks '25, including schedule, FAQs, sponsors, and featured clubs.
+*   **Inform:** Provide comprehensive details about RamHacks '25, including FAQs, sponsors, and featured clubs.
 *   **Engage:** Create an inviting and accessible online presence that encourages participation and excitement for the event.
 *   **Support:** Streamline event logistics by acting as a central point of reference for all stakeholders.
 *   **Showcase:** Highlight the innovative spirit of Farmingdale State College's hacking community.
@@ -74,7 +74,7 @@ In today's fast-paced digital world, a well-structured and user-friendly website
 
 **Target Audience:**
 *   **Prospective Hackathon Participants:** Students from Farmingdale State College and beyond interested in joining the hackathon.
-*   **Current Participants:** Attendees looking for the latest schedule, announcements, and resources during the event.
+*   **Current Participants:** Attendees looking for the latest announcements and resources during the event.
 *   **Sponsors & Partners:** Organizations seeking information about sponsorship opportunities and event impact.
 *   **Farmingdale State College Community:** Faculty, staff, and students interested in the hackathon's activities.
 *   **Event Organizers & Volunteers:** For managing and disseminating information efficiently.
@@ -92,7 +92,6 @@ The RamHacks '25 website is designed with a focus on delivering a modern, respon
 *   ✅ **Dynamic Event Information:**
     *   Comprehensive **About** section detailing the hackathon's mission and history.
     *   Detailed **FAQ** section to address common queries efficiently.
-    *   Up-to-date **Schedule** outlining all event activities, workshops, and deadlines.
     *   Dedicated **Sponsors** page to acknowledge and showcase our valuable partners.
     *   **Clubs** showcase to highlight participating student organizations.
 *   🎨 **Modern & Responsive User Interface:**
@@ -174,7 +173,7 @@ graph TD
     *   Decouples the application logic from raw SQL, enhancing maintainability.
 5.  **PostgreSQL Database (E):**
     *   The persistent data store for the application, managed locally via `docker-compose.yml`.
-    *   Stores all event-related data, such as schedule entries, FAQs, sponsor information, and potentially user/registration data.
+    *   Stores all event-related data, such as FAQs, sponsor information, and potentially user/registration data.
 6.  **Sentry Monitoring (K):**
     *   Integrated error tracking and performance monitoring platform.
     *   Captures and reports errors from both client-side (frontend) and server-side (backend) components, providing real-time insights into application health.
@@ -468,7 +467,7 @@ This section outlines the current state of the application, any known shortcomin
 
 *   **Initial Feature Set:** As of the current version, the website primarily focuses on static event information. Dynamic features like user registration, team formation, or project submission are not yet implemented.
 *   **Authentication/Authorization:** While `Better Auth` is mentioned in the initial README, a fully integrated authentication system for users (e.g., participants, judges, mentors) is not actively deployed or fully utilized for website content access control at this stage.
-*   **Real-time Updates:** Event schedule or announcement updates currently require a full page refresh or re-deployment. There's no real-time push notification system.
+*   **Real-time Updates:** Event announcements currently require a full page refresh or re-deployment. There's no real-time push notification system.
 
 ### 6.2. Known Issues
 
@@ -489,7 +488,7 @@ The RamHacks '25 website is continuously evolving. Here are some planned enhance
     *   Features for mentors and volunteers to sign up and manage their availability.
     *   Matching system for participants to connect with mentors.
 *   **Live Announcements & Notifications:**
-    *   Integration of a real-time system (e.g., WebSockets) for instant event announcements and schedule changes.
+    *   Integration of a real-time system (e.g., WebSockets) for instant event announcements.
 *   **Sponsor Portal:**
     *   Enhanced features for sponsors, including customizable profiles and analytics.
 *   **Improved Accessibility:**
@@ -523,7 +522,7 @@ We welcome contributions from the community to make RamHacks '25 even better! Pl
     ```
 4.  **Make Your Changes:** Implement your feature or fix the bug.
 5.  **Test Your Changes:** Ensure your changes work as expected and don't introduce regressions. Run relevant tests (see [Testing Strategy](#74-testing-strategy)).
-6.  **Commit Your Changes:** Write clear, concise commit messages following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification (e.g., `feat: add new schedule page`, `fix: correct typo in FAQ`).
+6.  **Commit Your Changes:** Write clear, concise commit messages following the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification (e.g., `feat: add new feature`, `fix: correct typo in FAQ`).
     The project uses `git-conventional-commits.yaml` for validation.
 7.  **Push to Your Fork:**
     ```bash
@@ -648,7 +647,7 @@ This project is actively maintained by the Farmingdale State Hacks development t
 
 **v1.0.0 (YYYY-MM-DD)**
 *   Initial stable release of the RamHacks '25 website.
-*   Core information pages (About, FAQ, Schedule, Sponsors, Clubs).
+*   Core information pages (About, FAQ, Sponsors, Clubs).
 *   Full TanStack Start, React 19, Tailwind CSS v4, shadcn/ui integration.
 *   Drizzle ORM with PostgreSQL database backend.
 *   Docker containerization for local development and deployment.
@@ -665,9 +664,6 @@ This project is actively maintained by the Farmingdale State Hacks development t
 
 **Q: What is RamHacks?**
 A: RamHacks is Farmingdale State College's annual student-run hackathon, bringing together students from various disciplines to build innovative projects, learn new skills, and connect with peers and mentors.
-
-**Q: Where can I find the event schedule?**
-A: The detailed schedule is available on the [Schedule page](#2-feature-highlights). It will be updated regularly as the event approaches.
 
 **Q: How can I register for RamHacks?**
 A: Registration details, including links and deadlines, will be announced soon on the website's homepage and dedicated sections. Please keep an eye on updates!

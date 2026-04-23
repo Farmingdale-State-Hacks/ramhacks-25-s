@@ -1,17 +1,16 @@
-import { wrapCreateRootRouteWithSentry } from "@sentry/tanstackstart-react";
 import type { QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import {
-  createRootRouteWithContext,
-  HeadContent,
-  Outlet,
-  ScriptOnce,
-  Scripts,
+    createRootRouteWithContext,
+    HeadContent,
+    Outlet,
+    ScriptOnce,
+    Scripts,
 } from "@tanstack/react-router";
 import { lazy, Suspense } from "react";
-import appCss from "~/lib/styles/app.css?url";
-import { seo, Logger, LogLevel } from "~/lib/utils";
 import { app } from "~/config";
+import appCss from "~/lib/styles/app.css?url";
+import { Logger, LogLevel, seo } from "~/lib/utils";
 
 const logger = new Logger("Root", {
   minLevel: LogLevel.INFO,
@@ -27,8 +26,7 @@ const TanStackRouterDevtools =
       })),
     );
 
-export const Route = wrapCreateRootRouteWithSentry(
-  createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
     beforeLoad: async () => {
       logger.info("Loading root route");
       return {};
@@ -87,8 +85,7 @@ export const Route = wrapCreateRootRouteWithSentry(
       ],
     }),
     component: RootComponent,
-  }),
-);
+  });
 
 function RootComponent() {
   logger.debug("Rendering root component");

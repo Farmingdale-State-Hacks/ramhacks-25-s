@@ -9,11 +9,6 @@ describe('Navigation', () => {
     cy.url().should('include', '#about')
     cy.contains('About').should('be.visible')
 
-    // Test Schedule section navigation
-    cy.contains('nav a', 'Schedule').click()
-    cy.url().should('include', '#schedule')
-    cy.contains('Schedule').should('be.visible')
-
     // Test Clubs section navigation
     cy.contains('nav a', 'Clubs').click()
     cy.url().should('include', '#clubs')
@@ -33,7 +28,7 @@ describe('Navigation', () => {
   it('should have working register button in navbar', () => {
     cy.contains('nav', 'Register').should('be.visible')
     cy.contains('nav', 'Register').should('have.attr', 'href')
-      .and('include', 'https://forms.gle/Xp6nnGfTPvzb7hFM9')
+      .and('include', 'https://forms.gle/z7TDE94KT8CG8XhE9 ')
   })
 
   it('should have a working logo that links to the homepage', () => {

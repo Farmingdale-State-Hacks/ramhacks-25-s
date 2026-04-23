@@ -1,5 +1,5 @@
 import MillionLint from "@million/lint";
-import { wrapVinxiConfigWithSentry } from "@sentry/tanstackstart-react";
+import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import tailwindcss from "@tailwindcss/vite";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import { defineConfig } from "@tanstack/react-start/config";
@@ -40,6 +40,12 @@ const config = defineConfig({
         injectRegister: "auto",
         includeAssets: ["**/*"],
       }),
+      sentryTanstackStart({
+        org: process.env.SENTRY_ORG,
+        project: process.env.SENTRY_PROJECT,
+        authToken: process.env.SENTRY_AUTH_TOKEN,
+        silent: !process.env.CI,
+      }),
     ],
     ssr: {
       external: ["@tanstack/react-query", "@tanstack/react-query-devtools"],
@@ -74,9 +80,4 @@ const config = defineConfig({
   },
 } satisfies TanStackStartInputConfig);
 
-export default wrapVinxiConfigWithSentry(config, {
-  org: process.env.SENTRY_ORG,
-  project: process.env.SENTRY_PROJECT,
-  authToken: process.env.SENTRY_AUTH_TOKEN,
-  silent: !process.env.CI,
-});
+export default config;

@@ -8,7 +8,6 @@ This directory contains end-to-end tests for the RamHacks 2026 website using Cyp
   - `home.cy.ts`: Tests for the homepage components
   - `navigation.cy.ts`: Tests for navigation and links
   - `faq.cy.ts`: Tests for the FAQ section
-  - `schedule.cy.ts`: Tests for the schedule section
   - `responsive.cy.ts`: Tests for responsive design
   - `accessibility.cy.ts`: Tests for accessibility features
 

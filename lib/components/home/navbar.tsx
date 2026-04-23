@@ -1,8 +1,8 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import type React from "react";
 import { useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
 import ThemeToggle from "../theme-toggle";
 
 export const Navbar: React.FC = () => {
@@ -29,7 +29,7 @@ export const Navbar: React.FC = () => {
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center justify-end space-x-6 flex-1">
-          {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link) => (
+          {["About", "Clubs", "Sponsors", "FAQ"].map((link) => (
             <a
               key={link}
               href={`#${link.toLowerCase()}`}
@@ -40,7 +40,7 @@ export const Navbar: React.FC = () => {
           ))}
           <ThemeToggle />
           <a
-            href="https://forms.gle/Xp6nnGfTPvzb7hFM9"
+            href="https://forms.gle/z7TDE94KT8CG8XhE9 "
             className="bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors p-2 rounded-md"
             target="_blank"
             rel="noopener noreferrer"
@@ -72,7 +72,7 @@ export const Navbar: React.FC = () => {
             transition={{ duration: 0.3 }}
           >
             <div className="flex flex-col items-center space-y-4">
-              {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link) => (
+              {["About", "Clubs", "Sponsors", "FAQ"].map((link) => (
                 <a
                   key={link}
                   href={`#${link.toLowerCase()}`}
@@ -83,7 +83,7 @@ export const Navbar: React.FC = () => {
                 </a>
               ))}
               <a
-                href="https://forms.gle/Xp6nnGfTPvzb7hFM9"
+                href="https://forms.gle/z7TDE94KT8CG8XhE9 "
                 className="bg-primary text-primary-foreground font-medium hover:bg-primary/90 transition-colors w-full p-2 rounded-md"
                 target="_blank"
                 rel="noopener noreferrer"

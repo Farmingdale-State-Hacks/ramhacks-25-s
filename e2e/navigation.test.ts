@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 /**
  * Navigation test suite
@@ -19,7 +19,7 @@ test.describe('Navigation', () => {
     await expect(navbar.locator('img[alt="RamHacks Logo"]')).toBeVisible();
 
     // Verify all navigation links are present
-    const navLinks = ['About', 'Schedule', 'Clubs', 'Sponsors', 'FAQ'];
+    const navLinks = ['About', 'Clubs', 'Sponsors', 'FAQ'];
 
     for (const link of navLinks) {
       await expect(navbar.locator(`a:has-text("${link}")`)).toBeVisible();
@@ -31,7 +31,7 @@ test.describe('Navigation', () => {
 
   test('clicking navbar links navigates to correct sections', async ({ page }) => {
     // Test navigation to all main sections
-    const sections = ['About', 'Schedule', 'Clubs', 'Sponsors', 'FAQ'];
+    const sections = ['About', 'Clubs', 'Sponsors', 'FAQ'];
 
     for (const section of sections) {
       // Click the link in the navbar
@@ -51,7 +51,7 @@ test.describe('Navigation', () => {
 
     // Check that the link points to the correct URL
     const href = await registerButton.getAttribute('href');
-    expect(href).toContain('https://forms.gle/Xp6nnGfTPvzb7hFM9');
+    expect(href).toContain('https://forms.gle/z7TDE94KT8CG8XhE9 ');
   });
 
   test('clicking logo scrolls back to top', async ({ page }) => {
@@ -88,13 +88,13 @@ test.describe('Navigation', () => {
       await mobileMenuButton.click();
 
       // Verify menu items are visible after clicking
-      for (const link of ['About', 'Schedule', 'Clubs', 'Sponsors', 'FAQ']) {
+      for (const link of ['About', 'Clubs', 'Sponsors', 'FAQ']) {
         await expect(page.locator(`a:visible:has-text("${link}")`)).toBeVisible();
       }
     } else {
       // If no mobile menu button, the responsive design might use a different approach
       // Just verify links are still visible in some form
-      test.skip('No mobile menu button found - design may handle mobile differently');
+      test.skip(true, 'No mobile menu button found - design may handle mobile differently');
     }
   });
 });

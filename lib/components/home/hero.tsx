@@ -1,9 +1,9 @@
 "use client"
 
+import { motion } from "framer-motion"
+import { Calendar, ChevronRight, MapPin, Sparkles, Users } from "lucide-react"
 import type React from "react"
 import { Button } from "~/lib/components/ui/button"
-import { Calendar, ChevronRight, Sparkles, MapPin, Users } from "lucide-react"
-import { motion } from "framer-motion"
 
 export const Hero: React.FC = () => {
   // Animation variants
@@ -146,7 +146,7 @@ export const Hero: React.FC = () => {
         >
           <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
             <Button className="bg-orange-500 hover:bg-white hover:text-orange-500 text-white text-lg px-8 py-6 rounded-full shadow-lg shadow-orange-500/20 flex items-center cursor-pointer" onClick={() => {
-              window.open("https://forms.gle/Xp6nnGfTPvzb7hFM9", "_blank", "noreferrer");
+              window.open("https://forms.gle/z7TDE94KT8CG8XhE9 ", "_blank", "noreferrer");
             }}>
               Register Now
               <ChevronRight className="ml-2 h-5 w-5" />

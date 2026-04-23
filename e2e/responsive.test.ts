@@ -1,4 +1,4 @@
-import { test, expect, devices } from '@playwright/test';
+import { devices, expect, test } from '@playwright/test';
 
 /**
  * Responsive design test suite
@@ -136,7 +136,7 @@ test.describe('Responsive Design', () => {
       await expect(page.locator('p', { hasText: 'Join us for an exciting 24-hour hackathon' })).toBeVisible();
 
       // Scroll to various sections to check their visibility
-      for (const section of ['About', 'Schedule', 'FAQ']) {
+      for (const section of ['About', 'FAQ']) {
         await page.locator(`text=${section}`).scrollIntoViewIfNeeded();
         await expect(page.locator(`section#${section.toLowerCase()}, [id="${section.toLowerCase()}"]`)).toBeVisible();
       }

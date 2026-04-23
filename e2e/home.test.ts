@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 
 /**
  * Home page test suite
@@ -42,7 +42,7 @@ test.describe('Home Page', () => {
     // Get onclick attribute content (this is implementation-specific)
     // In real scenarios, you'd test the actual navigation
     const registerButtonHTML = await registerButton.evaluate(el => el.outerHTML);
-    expect(registerButtonHTML).toContain('https://forms.gle/Xp6nnGfTPvzb7hFM9');
+    expect(registerButtonHTML).toContain('https://forms.gle/z7TDE94KT8CG8XhE9 ');
 
     // Check for Sponsor Us button
     const sponsorButton = page.locator('button:has-text("Sponsor Us")');
@@ -58,10 +58,6 @@ test.describe('Home Page', () => {
 
     // About section
     await expect(page.locator('section#about, [id="about"]')).toBeVisible();
-
-    // Schedule section
-    await page.locator('text=Schedule').scrollIntoViewIfNeeded();
-    await expect(page.locator('section#schedule, [id="schedule"]')).toBeVisible();
 
     // Clubs section
     await page.locator('text=Clubs').scrollIntoViewIfNeeded();

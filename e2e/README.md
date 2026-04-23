@@ -7,7 +7,6 @@ This directory contains end-to-end tests for the RamHacks 2026 website using Pla
 - `home.test.ts`: Tests for the homepage content and structure
 - `navigation.test.ts`: Tests for navigation and links across the site
 - `faq.test.ts`: Tests for the FAQ section and accordion functionality
-- `schedule.test.ts`: Tests for the schedule section
 - `responsive.test.ts`: Tests for responsive design across different device sizes
 
 ## Running Tests

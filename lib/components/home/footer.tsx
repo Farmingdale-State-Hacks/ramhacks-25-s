@@ -80,7 +80,7 @@ export const Footer: React.FC = () => {
           >
             <h3 className="font-bold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2">
-              {["About", "Schedule", "Clubs", "Sponsors", "FAQ"].map((link, index) => (
+              {["About", "Clubs", "Sponsors", "FAQ"].map((link, index) => (
                 <li key={`${link}-${+index}`}>
                   <a
                     href={`#${link.toLowerCase()}`}
@@ -127,7 +127,7 @@ export const Footer: React.FC = () => {
             <h3 className="font-bold text-lg mb-4">Get Involved</h3>
             <ul className="space-y-2">
               {[
-                { name: "Register as Participant", link: "https://forms.gle/Xp6nnGfTPvzb7hFM9" },
+                { name: "Register as Participant", link: "https://forms.gle/z7TDE94KT8CG8XhE9 " },
                 { name: "Become a Sponsor", link: "mailto:ferdt4@farmingdale.edu" },
               ].map((action, index) => (
                 <li key={`${action.name}-${+index}`}>

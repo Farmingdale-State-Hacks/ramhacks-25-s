@@ -3,7 +3,6 @@ import tailwindcss from "@tailwindcss/vite";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import { defineConfig } from "@tanstack/react-start/config";
 import { createRequire } from "node:module";
-import { VitePWA } from "vite-plugin-pwa";
 import tsConfigPaths from "vite-tsconfig-paths";
 
 const config = defineConfig({

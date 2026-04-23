@@ -1,8 +1,8 @@
-import MillionLint from "@million/lint";
 import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import tailwindcss from "@tailwindcss/vite";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import { defineConfig } from "@tanstack/react-start/config";
+import { createRequire } from "node:module";
 import { VitePWA } from "vite-plugin-pwa";
 import tsConfigPaths from "vite-tsconfig-paths";
 
@@ -20,21 +20,29 @@ const config = defineConfig({
         projects: ["./tsconfig.json"],
       }),
       tailwindcss(),
-      MillionLint.vite({
-        react: "19",
-        lite: true, // Enable lite mode for faster builds
-        filter: {
-          // Limit scope to only your app components
-          include: "**/components/**/*.{tsx,jsx}",
-          exclude: "**/node_modules/**/*"
-        },
-        optimizeDOM: false, // Disable DOM optimization to reduce complexity
-      }),
+      // Million Lint is a dev-time profiler. Its package pulls in recast +
+      // ast-types whose module-init reads dozens of .d.ts files in parallel,
+      // which blows past the GHA runner's hard fd cap (65536) during
+      // `vinxi build`. Load it lazily (and only outside CI) so static import
+      // side effects never run on the runner.
+      ...(process.env.CI
+        ? []
+        : [
+            createRequire(import.meta.url)("@million/lint").default.vite({
+              react: "19",
+              lite: true,
+              filter: {
+                include: "**/components/**/*.{tsx,jsx}",
+                exclude: "**/node_modules/**/*",
+              },
+              optimizeDOM: false,
+            }),
+          ]),
       VitePWA({
         workbox: {
           cleanupOutdatedCaches: true,
           globPatterns: ["**/*"],
-          maximumFileSizeToCacheInBytes: ((1024 * 2) ** 2) //
+          maximumFileSizeToCacheInBytes: (1024 * 2) ** 2, //
         },
         registerType: "autoUpdate",
         injectRegister: "auto",
@@ -51,23 +59,32 @@ const config = defineConfig({
       external: ["@tanstack/react-query", "@tanstack/react-query-devtools"],
     },
     esbuild: {
-      drop: ['console', 'debugger'], // Drop console statements in production
+      drop: ["console", "debugger"], // Drop console statements in production
     },
   },
 
   // https://react.dev/learn/react-compiler
-  react: {
-    babel: {
-      plugins: [
-        [
-          "babel-plugin-react-compiler",
-          {
-            target: "19",
-          },
-        ],
-      ],
-    },
-  },
+  // babel-plugin-react-compiler uses recast, which opens ast-types' .d.ts
+  // files on every transform. For an app with many route/component files the
+  // aggregate FD usage blows past the GHA runner's hard cap (65536) and
+  // crashes the build with EMFILE. Skip the compiler plugin in CI; tests
+  // don't need the compiled output. Sentry/release builds in CI lose this
+  // optimization too, which is acceptable - production ships from Vercel,
+  // not from CI artifacts.
+  react: process.env.CI
+    ? {}
+    : {
+        babel: {
+          plugins: [
+            [
+              "babel-plugin-react-compiler",
+              {
+                target: "19",
+              },
+            ],
+          ],
+        },
+      },
 
   server: {
     /**

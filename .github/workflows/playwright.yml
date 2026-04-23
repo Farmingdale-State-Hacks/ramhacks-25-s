@@ -45,11 +45,20 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Increase file descriptor limit
-        run: ulimit -n 65536
-
+      - name: Install graceful-fs (CI-only, to survive EMFILE from magicast/recast)
+        run: |
+          npm install --no-save --no-package-lock graceful-fs
+          cat > ./gfs-preload.cjs <<'EOF'
+          require('graceful-fs').gracefulify(require('fs'));
+          EOF
       - name: Build application
-        run: bun run build
+        env:
+          UV_THREADPOOL_SIZE: "4"
+          NODE_OPTIONS: --require=./gfs-preload.cjs
+        run: |
+          ulimit -n 1048576 || ulimit -n 65536
+          echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
+          bun run build
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4

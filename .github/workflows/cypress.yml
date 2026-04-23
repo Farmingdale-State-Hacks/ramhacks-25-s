@@ -44,8 +44,11 @@ jobs:
         run: bun install
 
       - name: Build application
+        env:
+          UV_THREADPOOL_SIZE: "4"
         run: |
-          ulimit -n 65536
+          ulimit -n 1048576 || ulimit -n 65536
+          echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
           bun run build
 
       - name: Save build folder

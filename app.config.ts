@@ -40,7 +40,7 @@ const config = defineConfig({
         workbox: {
           cleanupOutdatedCaches: true,
           globPatterns: ["**/*"],
-          maximumFileSizeToCacheInBytes: ((1024 * 2) ** 2) //
+          maximumFileSizeToCacheInBytes: (1024 * 2) ** 2, //
         },
         registerType: "autoUpdate",
         injectRegister: "auto",
@@ -57,7 +57,7 @@ const config = defineConfig({
       external: ["@tanstack/react-query", "@tanstack/react-query-devtools"],
     },
     esbuild: {
-      drop: ['console', 'debugger'], // Drop console statements in production
+      drop: ["console", "debugger"], // Drop console statements in production
     },
   },
 

@@ -1,8 +1,8 @@
-import { createRequire } from "node:module";
 import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import tailwindcss from "@tailwindcss/vite";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
 import { defineConfig } from "@tanstack/react-start/config";
+import { createRequire } from "node:module";
 import { VitePWA } from "vite-plugin-pwa";
 import tsConfigPaths from "vite-tsconfig-paths";
 
@@ -64,18 +64,27 @@ const config = defineConfig({
   },
 
   // https://react.dev/learn/react-compiler
-  react: {
-    babel: {
-      plugins: [
-        [
-          "babel-plugin-react-compiler",
-          {
-            target: "19",
-          },
-        ],
-      ],
-    },
-  },
+  // babel-plugin-react-compiler uses recast, which opens ast-types' .d.ts
+  // files on every transform. For an app with many route/component files the
+  // aggregate FD usage blows past the GHA runner's hard cap (65536) and
+  // crashes the build with EMFILE. Skip the compiler plugin in CI; tests
+  // don't need the compiled output. Sentry/release builds in CI lose this
+  // optimization too, which is acceptable - production ships from Vercel,
+  // not from CI artifacts.
+  react: process.env.CI
+    ? {}
+    : {
+        babel: {
+          plugins: [
+            [
+              "babel-plugin-react-compiler",
+              {
+                target: "19",
+              },
+            ],
+          ],
+        },
+      },
 
   server: {
     /**

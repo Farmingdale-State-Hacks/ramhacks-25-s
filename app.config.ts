@@ -1,4 +1,4 @@
-import MillionLint from "@million/lint";
+import { createRequire } from "node:module";
 import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import tailwindcss from "@tailwindcss/vite";
 import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
@@ -20,13 +20,15 @@ const config = defineConfig({
         projects: ["./tsconfig.json"],
       }),
       tailwindcss(),
-      // Million Lint is a dev-time profiler. In CI it inflates the number of
-      // concurrent file opens via recast/ast-types and triggers EMFILE during
-      // `vinxi build` on GitHub-hosted runners. Skip it when CI=true.
+      // Million Lint is a dev-time profiler. Its package pulls in recast +
+      // ast-types whose module-init reads dozens of .d.ts files in parallel,
+      // which blows past the GHA runner's hard fd cap (65536) during
+      // `vinxi build`. Load it lazily (and only outside CI) so static import
+      // side effects never run on the runner.
       ...(process.env.CI
         ? []
         : [
-            MillionLint.vite({
+            createRequire(import.meta.url)("@million/lint").default.vite({
               react: "19",
               lite: true,
               filter: {

@@ -20,16 +20,22 @@ const config = defineConfig({
         projects: ["./tsconfig.json"],
       }),
       tailwindcss(),
-      MillionLint.vite({
-        react: "19",
-        lite: true, // Enable lite mode for faster builds
-        filter: {
-          // Limit scope to only your app components
-          include: "**/components/**/*.{tsx,jsx}",
-          exclude: "**/node_modules/**/*"
-        },
-        optimizeDOM: false, // Disable DOM optimization to reduce complexity
-      }),
+      // Million Lint is a dev-time profiler. In CI it inflates the number of
+      // concurrent file opens via recast/ast-types and triggers EMFILE during
+      // `vinxi build` on GitHub-hosted runners. Skip it when CI=true.
+      ...(process.env.CI
+        ? []
+        : [
+            MillionLint.vite({
+              react: "19",
+              lite: true,
+              filter: {
+                include: "**/components/**/*.{tsx,jsx}",
+                exclude: "**/node_modules/**/*",
+              },
+              optimizeDOM: false,
+            }),
+          ]),
       VitePWA({
         workbox: {
           cleanupOutdatedCaches: true,

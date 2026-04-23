@@ -22,14 +22,13 @@ jobs:
       - name: Install graceful-fs (CI-only, to survive EMFILE from magicast/recast)
         run: |
           npm install --no-save --no-package-lock graceful-fs
-          cat > /tmp/gfs-preload.cjs <<'EOF'
-          const gfs = require('graceful-fs');
-          gfs.gracefulify(require('fs'));
+          cat > ./gfs-preload.cjs <<'EOF'
+          require('graceful-fs').gracefulify(require('fs'));
           EOF
       - name: Build
         env:
           UV_THREADPOOL_SIZE: "4"
-          NODE_OPTIONS: --require=/tmp/gfs-preload.cjs
+          NODE_OPTIONS: --require=./gfs-preload.cjs
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"

@@ -38,16 +38,13 @@ const config = defineConfig({
               optimizeDOM: false,
             }),
           ]),
-      VitePWA({
-        workbox: {
-          cleanupOutdatedCaches: true,
-          globPatterns: ["**/*"],
-          maximumFileSizeToCacheInBytes: (1024 * 2) ** 2, //
-        },
-        registerType: "autoUpdate",
-        injectRegister: "auto",
-        includeAssets: ["**/*"],
-      }),
+      // VitePWA temporarily disabled: its second rollup pass imports the
+      // full @sentry/react module graph, which imports
+      // @tanstack/router-core/ssr/client - a subpath that only exists in
+      // modern router-core and isn't available in the pinned 1.120.19.
+      // Re-enabled once the repo migrates off the old TanStack Start
+      // architecture (tracked in #133).
+      // VitePWA({ ... }),
       sentryTanstackStart({
         org: process.env.SENTRY_ORG,
         project: process.env.SENTRY_PROJECT,

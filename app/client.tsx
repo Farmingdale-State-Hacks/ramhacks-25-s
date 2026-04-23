@@ -3,22 +3,14 @@ import { StartClient } from "@tanstack/react-start";
 import { StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { createRouter } from "./router";
-import * as Sentry from "@sentry/react";
 
-
+// Client-side Sentry temporarily stripped: @sentry/react@10.x pulls
+// @tanstack/router-core/ssr/client via its tanstackrouter integration
+// module, a subpath that only exists in modern router-core and isn't
+// available in the pinned 1.120.19. Re-added after the migration off
+// vinxi (#133). Server-side sentryTanstackStart in app.config.ts is
+// unaffected.
 const router = createRouter();
-
-Sentry.init({
-  dsn: import.meta.env.VITE_SENTRY_DSN,
-  integrations: [
-    Sentry.tanstackRouterBrowserTracingIntegration(router),
-    Sentry.replayIntegration()
-  ],
-  tracesSampleRate: 1.0,
-  tracePropagationTargets: ["localhost", /^https:\/\/ramhacks\.com\/api/],
-  replaysSessionSampleRate: 0.1,
-  replaysOnErrorSampleRate: 1.0
-});
 
 hydrateRoot(
   document,

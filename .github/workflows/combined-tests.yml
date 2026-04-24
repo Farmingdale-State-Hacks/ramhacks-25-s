@@ -38,9 +38,8 @@ jobs:
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps
 
-      - name: Install graceful-fs (CI-only, to survive EMFILE from magicast/recast)
+      - name: Write graceful-fs preload (CI-only, to survive EMFILE from magicast/recast)
         run: |
-          npm install --no-save --no-package-lock graceful-fs
           cat > ./gfs-preload.cjs <<'EOF'
           require('graceful-fs').gracefulify(require('fs'));
           EOF
@@ -51,7 +50,7 @@ jobs:
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
-          bun run build
+          bun run build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v5
@@ -59,6 +58,7 @@ jobs:
           name: build-combined
           if-no-files-found: error
           path: .output
+          include-hidden-files: true
 
   lint:
     name: Lint and Type Check
@@ -110,9 +110,17 @@ jobs:
           name: build-combined
           path: .output
 
+      - name: Install Cypress binary
+        run: bunx cypress install
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # bun.lockb isn't recognised by the action's auto-install logic;
+          # node_modules is already populated and the cypress binary is
+          # downloaded in the preceding step (bun install doesn't run
+          # cypress' postinstall reliably).
+          install: false
           browser: chrome
           start: bun run start
           wait-on: 'http://localhost:3000'
@@ -177,7 +185,7 @@ jobs:
           echo "Server is up and running"
 
       - name: Run Playwright tests
-        run: bunx playwright test --skip-server-start
+        run: bunx playwright test
         env:
           PLAYWRIGHT_TIMEOUT: 120000
 

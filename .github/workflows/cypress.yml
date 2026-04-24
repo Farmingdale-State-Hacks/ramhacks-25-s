@@ -43,9 +43,8 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Install graceful-fs (CI-only, to survive EMFILE from magicast/recast)
+      - name: Write graceful-fs preload (CI-only, to survive EMFILE from magicast/recast)
         run: |
-          npm install --no-save --no-package-lock graceful-fs
           cat > ./gfs-preload.cjs <<'EOF'
           require('graceful-fs').gracefulify(require('fs'));
           EOF
@@ -56,7 +55,7 @@ jobs:
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
-          bun run build
+          bun run build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v5
@@ -64,6 +63,7 @@ jobs:
           name: build
           if-no-files-found: error
           path: .output
+          include-hidden-files: true
 
   cypress-run:
     name: Cypress E2E - ${{ matrix.browser }}
@@ -89,9 +89,16 @@ jobs:
           name: build
           path: .output
 
+      - name: Install Cypress binary
+        run: bunx cypress install
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # bun.lockb isn't recognised by the action's auto-install logic;
+          # bun install ran in the install job. The cypress binary is
+          # downloaded by the preceding step.
+          install: false
           browser: ${{ matrix.browser }}
           start: bun run start
           wait-on: 'http://localhost:3000'
@@ -140,9 +147,13 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Install Cypress binary
+        run: bunx cypress install
+
       - name: Cypress component tests
         uses: cypress-io/github-action@v6
         with:
+          install: false
           component: true
           browser: chrome
         env:

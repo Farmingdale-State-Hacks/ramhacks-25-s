@@ -91,7 +91,9 @@ const config = defineConfig({
      * preset: "cloudflare-pages",
      * unenv: cloudflare,
      */
-    preset: "vercel",
+    // Default to vercel (matches prod). CI test workflows set
+    // VINXI_PRESET=node-server so `vinxi start` can serve the output.
+    preset: (process.env.VINXI_PRESET ?? "vercel") as "vercel",
   },
 } satisfies TanStackStartInputConfig);
 

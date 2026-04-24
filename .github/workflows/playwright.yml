@@ -45,9 +45,8 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Install graceful-fs (CI-only, to survive EMFILE from magicast/recast)
+      - name: Write graceful-fs preload (CI-only, to survive EMFILE from magicast/recast)
         run: |
-          npm install --no-save --no-package-lock graceful-fs
           cat > ./gfs-preload.cjs <<'EOF'
           require('graceful-fs').gracefulify(require('fs'));
           EOF
@@ -58,7 +57,7 @@ jobs:
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
-          bun run build
+          bun run build:test
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
@@ -75,6 +74,7 @@ jobs:
           name: build-playwright
           if-no-files-found: error
           path: .output
+          include-hidden-files: true
 
   test:
     name: Playwright Tests - ${{ matrix.project }}
@@ -120,7 +120,7 @@ jobs:
           echo "Server is up and running"
 
       - name: Run Playwright tests
-        run: bunx playwright test --project=${{ matrix.project }} --skip-server-start
+        run: bunx playwright test --project=${{ matrix.project }}
         env:
           PLAYWRIGHT_TIMEOUT: 120000
 

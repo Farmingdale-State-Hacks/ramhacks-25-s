@@ -50,14 +50,14 @@ jobs:
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
-          bun run build
+          bun run build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v5
         with:
           name: build-combined
           if-no-files-found: error
-          path: .vercel/output
+          path: .output
 
   lint:
     name: Lint and Type Check
@@ -107,11 +107,15 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-combined
-          path: .vercel/output
+          path: .output
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # bun.lockb isn't recognised by the action's auto-install logic;
+          # the preceding install-deps cache restore already populated
+          # node_modules.
+          install: false
           browser: chrome
           start: bun run start
           wait-on: 'http://localhost:3000'
@@ -161,7 +165,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-combined
-          path: .vercel/output
+          path: .output
 
       - name: Start server for testing (background)
         run: |

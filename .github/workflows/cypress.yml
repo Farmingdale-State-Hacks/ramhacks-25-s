@@ -55,14 +55,14 @@ jobs:
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
-          bun run build
+          bun run build:test
 
       - name: Save build folder
         uses: actions/upload-artifact@v5
         with:
           name: build
           if-no-files-found: error
-          path: .vercel/output
+          path: .output
 
   cypress-run:
     name: Cypress E2E - ${{ matrix.browser }}
@@ -86,11 +86,14 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build
-          path: .vercel/output
+          path: .output
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # bun.lockb isn't recognised by the action's auto-install logic;
+          # `bun install` ran in the install job.
+          install: false
           browser: ${{ matrix.browser }}
           start: bun run start
           wait-on: 'http://localhost:3000'
@@ -142,6 +145,7 @@ jobs:
       - name: Cypress component tests
         uses: cypress-io/github-action@v6
         with:
+          install: false
           component: true
           browser: chrome
         env:

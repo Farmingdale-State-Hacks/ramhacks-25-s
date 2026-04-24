@@ -45,7 +45,7 @@ jobs:
           # ran already in the preceding step.
           install: false
           browser: ${{ matrix.browsers }}
-          build: bash -c 'ulimit -n 65536 && bun run build'
+          build: bash -c 'ulimit -n 65536 && bun run build:test'
           start: bun run start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120

@@ -57,7 +57,7 @@ jobs:
         run: |
           ulimit -n 1048576 || ulimit -n 65536
           echo "fd soft limit: $(ulimit -Sn) / hard limit: $(ulimit -Hn)"
-          bun run build
+          bun run build:test
 
       - name: Cache Playwright browsers
         uses: actions/cache@v4
@@ -73,7 +73,7 @@ jobs:
         with:
           name: build-playwright
           if-no-files-found: error
-          path: .vercel/output
+          path: .output
 
   test:
     name: Playwright Tests - ${{ matrix.project }}
@@ -104,7 +104,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-playwright
-          path: .vercel/output
+          path: .output
 
       - name: Start server for testing (background)
         run: |

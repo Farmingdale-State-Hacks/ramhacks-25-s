@@ -89,11 +89,15 @@ jobs:
           name: build
           path: .output
 
+      - name: Install Cypress binary
+        run: bunx cypress install
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           # bun.lockb isn't recognised by the action's auto-install logic;
-          # `bun install` ran in the install job.
+          # bun install ran in the install job. The cypress binary is
+          # downloaded by the preceding step.
           install: false
           browser: ${{ matrix.browser }}
           start: bun run start
@@ -142,6 +146,9 @@ jobs:
 
       - name: Install dependencies
         run: bun install
+
+      - name: Install Cypress binary
+        run: bunx cypress install
 
       - name: Cypress component tests
         uses: cypress-io/github-action@v6

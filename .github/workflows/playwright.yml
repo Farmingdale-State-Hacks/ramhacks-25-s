@@ -120,7 +120,7 @@ jobs:
           echo "Server is up and running"
 
       - name: Run Playwright tests
-        run: bunx playwright test --project=${{ matrix.project }} --skip-server-start
+        run: bunx playwright test --project=${{ matrix.project }}
         env:
           PLAYWRIGHT_TIMEOUT: 120000
 

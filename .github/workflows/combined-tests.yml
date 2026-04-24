@@ -110,12 +110,16 @@ jobs:
           name: build-combined
           path: .output
 
+      - name: Install Cypress binary
+        run: bunx cypress install
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
           # bun.lockb isn't recognised by the action's auto-install logic;
-          # the preceding install-deps cache restore already populated
-          # node_modules.
+          # node_modules is already populated and the cypress binary is
+          # downloaded in the preceding step (bun install doesn't run
+          # cypress' postinstall reliably).
           install: false
           browser: chrome
           start: bun run start
@@ -181,7 +185,7 @@ jobs:
           echo "Server is up and running"
 
       - name: Run Playwright tests
-        run: bunx playwright test --skip-server-start
+        run: bunx playwright test
         env:
           PLAYWRIGHT_TIMEOUT: 120000
 

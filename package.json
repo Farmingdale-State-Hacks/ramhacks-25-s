@@ -6,7 +6,7 @@
     "auth": "pnpm dlx @better-auth/cli@latest",
     "auth:generate": "pnpm dlx @better-auth/cli@latest generate --y --output ./lib/server/schema/auth.schema.ts && prettier --write ./lib/server/schema/auth.schema.ts",
     "build": "bun install && vinxi build --preset vercel",
-    "build:test": "bun install && vinxi build --preset node-server",
+    "build:test": "VINXI_PRESET=node-server bun install && VINXI_PRESET=node-server vinxi build --preset node-server",
     "db": "drizzle-kit",
     "dev": "vinxi dev",
     "format": "prettier --write .",

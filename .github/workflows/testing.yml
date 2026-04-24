@@ -40,6 +40,10 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
+          # bun.lockb is not recognised by cypress-io/github-action's
+          # auto-install logic; skip its install pass since `bun install`
+          # ran already in the preceding step.
+          install: false
           browser: ${{ matrix.browsers }}
           build: bash -c 'ulimit -n 65536 && bun run build'
           start: bun run start

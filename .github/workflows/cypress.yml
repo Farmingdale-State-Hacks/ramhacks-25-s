@@ -58,7 +58,7 @@ jobs:
           bun run build:test
 
       - name: Save build folder
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: build
           if-no-files-found: error
@@ -110,7 +110,7 @@ jobs:
 
       - name: Upload Cypress Screenshots
         if: failure()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: cypress-screenshots-${{ matrix.browser }}
           path: cypress/screenshots
@@ -118,7 +118,7 @@ jobs:
 
       - name: Upload Cypress Videos
         if: always()
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v7
         with:
           name: cypress-videos-${{ matrix.browser }}
           path: cypress/videos

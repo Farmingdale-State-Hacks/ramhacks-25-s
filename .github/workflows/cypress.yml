@@ -63,6 +63,7 @@ jobs:
           name: build
           if-no-files-found: error
           path: .output
+          include-hidden-files: true
 
   cypress-run:
     name: Cypress E2E - ${{ matrix.browser }}

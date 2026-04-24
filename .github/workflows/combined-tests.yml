@@ -58,6 +58,7 @@ jobs:
           name: build-combined
           if-no-files-found: error
           path: .output
+          include-hidden-files: true
 
   lint:
     name: Lint and Type Check

@@ -74,6 +74,7 @@ jobs:
           name: build-playwright
           if-no-files-found: error
           path: .output
+          include-hidden-files: true
 
   test:
     name: Playwright Tests - ${{ matrix.project }}

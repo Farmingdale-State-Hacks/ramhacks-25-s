@@ -62,7 +62,7 @@ jobs:
         with:
           name: build
           if-no-files-found: error
-          path: .output
+          path: .vercel/output
 
   cypress-run:
     name: Cypress E2E - ${{ matrix.browser }}
@@ -86,7 +86,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build
-          path: .output
+          path: .vercel/output
 
       - name: Cypress run
         uses: cypress-io/github-action@v6

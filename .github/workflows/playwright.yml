@@ -73,7 +73,7 @@ jobs:
         with:
           name: build-playwright
           if-no-files-found: error
-          path: .output
+          path: .vercel/output
 
   test:
     name: Playwright Tests - ${{ matrix.project }}
@@ -104,7 +104,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-playwright
-          path: .output
+          path: .vercel/output
 
       - name: Start server for testing (background)
         run: |

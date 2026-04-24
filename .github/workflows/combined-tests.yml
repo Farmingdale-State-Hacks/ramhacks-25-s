@@ -57,7 +57,7 @@ jobs:
         with:
           name: build-combined
           if-no-files-found: error
-          path: .output
+          path: .vercel/output
 
   lint:
     name: Lint and Type Check
@@ -107,7 +107,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-combined
-          path: .output
+          path: .vercel/output
 
       - name: Cypress run
         uses: cypress-io/github-action@v6
@@ -161,7 +161,7 @@ jobs:
         uses: actions/download-artifact@v6
         with:
           name: build-combined
-          path: .output
+          path: .vercel/output
 
       - name: Start server for testing (background)
         run: |

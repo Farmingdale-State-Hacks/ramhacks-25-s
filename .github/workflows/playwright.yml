@@ -102,7 +102,7 @@ jobs:
         run: bunx playwright install --with-deps
 
       - name: Download the build folder
-        uses: actions/download-artifact@v6
+        uses: actions/download-artifact@v8
         with:
           name: build-playwright
           path: .output

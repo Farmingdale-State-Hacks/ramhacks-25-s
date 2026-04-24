@@ -86,3 +86,5 @@ sw.js.*
 .sentryclirc
 
 app.config.timestamp_*.js
+# Claude Code local state (settings, scheduled tasks, etc.)
+.claude/

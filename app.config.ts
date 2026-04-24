@@ -19,14 +19,15 @@ const config = defineConfig({
         projects: ["./tsconfig.json"],
       }),
       tailwindcss(),
-      // Million Lint is a dev-time profiler. Its package pulls in recast +
-      // ast-types whose module-init reads dozens of .d.ts files in parallel,
-      // which blows past the GHA runner's hard fd cap (65536) during
-      // `vinxi build`. Load it lazily (and only outside CI) so static import
-      // side effects never run on the runner.
-      ...(process.env.CI
-        ? []
-        : [
+      // Million Lint is an opt-in dev-time profiler. Off by default because:
+      //  (1) its package pulls in recast + ast-types whose module-init reads
+      //      dozens of .d.ts files in parallel, breaking CI with EMFILE;
+      //  (2) at 1.0.14 it crashes in dev against the Hono version the pinned
+      //      TanStack tree resolves (TypeError: #cachedBody(...).then is not
+      //      a function). Enable explicitly with ENABLE_MILLION_LINT=1 when
+      //      you want profiling.
+      ...(process.env.ENABLE_MILLION_LINT === "1"
+        ? [
             createRequire(import.meta.url)("@million/lint").default.vite({
               react: "19",
               lite: true,
@@ -36,7 +37,8 @@ const config = defineConfig({
               },
               optimizeDOM: false,
             }),
-          ]),
+          ]
+        : []),
       // VitePWA temporarily disabled: its second rollup pass imports the
       // full @sentry/react module graph, which imports
       // @tanstack/router-core/ssr/client - a subpath that only exists in

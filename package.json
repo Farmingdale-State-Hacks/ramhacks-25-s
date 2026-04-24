@@ -71,7 +71,7 @@
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
     "dompurify": "^3.2.5",
-    "drizzle-orm": "^0.44.1",
+    "drizzle-orm": "^0.45.2",
     "embla-carousel-react": "^8.6.0",
     "esbuild": "^0.28.0",
     "eslint-plugin-react-compiler": "^19.0.0-beta-e993439-20250405",

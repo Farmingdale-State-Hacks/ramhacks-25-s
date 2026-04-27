@@ -114,7 +114,7 @@ jobs:
         run: bunx cypress install
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           # bun.lockb isn't recognised by the action's auto-install logic;
           # node_modules is already populated and the cypress binary is

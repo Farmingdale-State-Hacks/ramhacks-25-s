@@ -93,7 +93,7 @@ jobs:
         run: bunx cypress install
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           # bun.lockb isn't recognised by the action's auto-install logic;
           # bun install ran in the install job. The cypress binary is
@@ -151,7 +151,7 @@ jobs:
         run: bunx cypress install
 
       - name: Cypress component tests
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           component: true

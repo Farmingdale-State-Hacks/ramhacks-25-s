@@ -20,8 +20,8 @@ jobs:
           # Prefer a PAT so release tags trigger downstream workflows; fall
           # back to the built-in token so the job still runs if the secret
           # is not yet configured.
-          token: ${{ secrets.RELEASE_TOKEN || github.token }}
+          token: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v6
         env:
-          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || github.token }}
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}

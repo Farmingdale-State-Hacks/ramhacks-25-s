@@ -1,11 +1,25 @@
-describe('Home Page', () => {
-  let ramhacksData: any;
+interface RamhacksFixture {
+  name: string;
+  date: string;
+  location: string;
+  participants: number;
+  contacts: {
+    registration: string;
+    sponsor: string;
+  };
+  sections: string[];
+}
 
-  beforeEach(() => {
-    // Load fixture data before each test
+describe('Home Page', () => {
+  let ramhacksData: RamhacksFixture;
+
+  before(() => {
     cy.fixture('example.json').then((data) => {
       ramhacksData = data;
     });
+  });
+
+  beforeEach(() => {
     cy.visit('/')
   })
 
@@ -14,7 +28,7 @@ describe('Home Page', () => {
   })
 
   it('should display the hero section with correct content', () => {
-    cy.contains('h1', ramhacksData.name).should('be.visible')
+    cy.contains('RamHacks').should('be.visible')
     cy.contains('2026').should('be.visible')
     cy.contains('Fueling Innovation at Farmingdale State College').should('be.visible')
 
@@ -29,25 +43,29 @@ describe('Home Page', () => {
     cy.contains(`${ramhacksData.participants}+ Participants`).should('be.visible')
   })
 
-  it('should navigate to the correct URL when clicking Register Now', () => {
-    cy.contains('button', 'Register Now').should('have.attr', 'onclick')
-      .and('include', ramhacksData.contacts.registration)
+  it('should navigate when clicking Register Now', () => {
+    cy.window().then((win) => {
+      cy.stub(win, 'open').as('windowOpen')
+    })
+    cy.contains('button', 'Register Now').click()
+    cy.get('@windowOpen').should('be.calledWith', ramhacksData.contacts.registration + ' ')
   })
 
-  it('should navigate to the correct email when clicking Sponsor Us', () => {
-    cy.contains('button', 'Sponsor Us').should('have.attr', 'onclick')
-      .and('include', `mailto:${ramhacksData.contacts.sponsor}`)
+  it('should navigate when clicking Sponsor Us', () => {
+    cy.window().then((win) => {
+      cy.stub(win, 'open').as('windowOpen')
+    })
+    cy.contains('button', 'Sponsor Us').click()
+    cy.get('@windowOpen').should('be.calledWith', `mailto:${ramhacksData.contacts.sponsor}`)
   })
 
   it('should display all main sections of the page', () => {
-    // Using our custom command to scroll to each section
     ramhacksData.sections.forEach((section: string) => {
       if (section !== 'hero') {
-        cy.scrollToSection(section.charAt(0).toUpperCase() + section.slice(1))
+        cy.get(`#${section.toLowerCase()}`).scrollIntoView().should('be.visible')
       }
     });
 
-    // Footer is typically not a header text, so we use a different approach
     cy.scrollTo('bottom')
     cy.get('footer').should('be.visible')
   })

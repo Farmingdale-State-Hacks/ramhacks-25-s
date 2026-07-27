@@ -15,6 +15,6 @@ interface Window {
   };
 
   // For analytics or other global objects
-  dataLayer?: any[];
-  ga?: Function;
+  dataLayer?: unknown[];
+  ga?: (...args: unknown[]) => void;
 }

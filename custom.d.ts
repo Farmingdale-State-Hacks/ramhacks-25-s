@@ -151,7 +151,7 @@ declare global {
 
   interface AppRouterInstance {
     push(
-      href: Parameters<typeof import('next/link')['default']>[0]['href'],
+      href: string,
       options?: { scroll?: boolean }
     ): void;
   }

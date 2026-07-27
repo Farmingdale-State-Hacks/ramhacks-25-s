@@ -4,7 +4,7 @@ import { Check, Award, Users, Code, Zap } from 'lucide-react'
 import type React from "react"
 import { Button } from "~/lib/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/lib/components/ui/card"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 export const Sponsors: React.FC = () => {
   const sponsorLevels = [
@@ -148,8 +148,8 @@ export const Sponsors: React.FC = () => {
           <div className="inline-block mb-4">
             <motion.div
               className="w-20 h-1 bg-amber-500 mx-auto mb-6 rounded-full"
-              initial={{ width: 0 }}
-              whileInView={{ width: 80 }}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             />

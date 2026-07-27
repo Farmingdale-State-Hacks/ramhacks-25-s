@@ -3,7 +3,7 @@
 import { Brain, Code, Users } from "lucide-react"
 import type React from "react"
 import { Card, CardContent } from "~/lib/components/ui/card"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 export const About: React.FC = () => {
   const sections = [
@@ -130,8 +130,8 @@ export const About: React.FC = () => {
           <div className="inline-block mb-3">
             <motion.div
               className="w-20 h-1 bg-primary mx-auto mb-6 rounded-full"
-              initial={{ width: 0 }}
-              whileInView={{ width: 80 }}
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             />
@@ -141,9 +141,9 @@ export const About: React.FC = () => {
             <span className="text-primary relative">
               RamHacks
               <motion.span
-                className="absolute -bottom-2 left-0 w-full h-1 bg-primary/30 rounded-full"
-                initial={{ width: 0 }}
-                whileInView={{ width: "100%" }}
+                className="absolute -bottom-2 left-0 w-full h-1 bg-primary/30 rounded-full origin-left"
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.4, delay: 0.6 }}
               />
@@ -236,9 +236,9 @@ export const About: React.FC = () => {
 
           <h3 className="text-3xl font-bold text-gray-800 dark:text-gray-100 mb-8 text-center md:text-left flex items-center">
             <motion.span
-              className="inline-block w-8 h-1 bg-primary mr-3 rounded-full md:block"
-              initial={{ width: 0 }}
-              whileInView={{ width: 32 }}
+              className="inline-block w-8 h-1 bg-primary mr-3 rounded-full md:block origin-left"
+              initial={{ scaleX: 0 }}
+              whileInView={{ scaleX: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4 }}
             />

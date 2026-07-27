@@ -3,7 +3,7 @@
 import { Brain, Code, ShieldCheck, Users } from "lucide-react"
 import type React from "react"
 import { Card, CardContent } from "~/lib/components/ui/card"
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 
 export const Clubs: React.FC = () => {
   const clubs = [

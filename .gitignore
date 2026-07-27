@@ -86,5 +86,11 @@ sw.js.*
 .sentryclirc
 
 app.config.timestamp_*.js
+# test outputs
+cypress/screenshots/
+cypress/videos/
+playwright-report/
+test-results/
+
 # Claude Code local state (settings, scheduled tasks, etc.)
 .claude/

@@ -13,7 +13,7 @@ export const Navbar: React.FC = () => {
   };
 
   return (
-    <nav className="bg-background py-4 sticky top-0 z-50 shadow-md">
+    <nav className="bg-background py-4 sticky top-0 z-50 shadow-md" role="navigation">
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo Section */}
         <div className="flex items-center">

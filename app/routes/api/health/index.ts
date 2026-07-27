@@ -20,7 +20,7 @@ export const APIRoute = createAPIFileRoute("/api/health")({
         status: 200,
       });
     } catch (error) {
-      throw new Error(`${error instanceof Error ? error.message : JSON.stringify(error, null, 2)}`);
+      throw new Error(`${error instanceof Error ? error.message : JSON.stringify(error, null, 2)}`, { cause: error });
     }
   },
   OPTIONS: () => {

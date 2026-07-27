@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion } from "motion/react"
 import { Calendar, ChevronRight, MapPin, Sparkles, Users } from "lucide-react"
 import type React from "react"
 import { Button } from "~/lib/components/ui/button"

@@ -1,12 +1,16 @@
-import { defineConfig } from "cypress";
+import cypress from "cypress";
+import { createRequire } from "node:module";
 
+const require = createRequire(import.meta.url);
+
+const defineConfig = cypress.defineConfig || (cypress as unknown as { default: { defineConfig: typeof cypress.defineConfig } }).default?.defineConfig;
 
 export default defineConfig({
   viewportWidth: 1000,
   viewportHeight: 800,
   defaultCommandTimeout: 40000,
   pageLoadTimeout: 120000,
-  video: true,
+  video: false,
   watchForFileChanges: false,
   scrollBehavior: 'center',
   retries: {
@@ -14,10 +18,8 @@ export default defineConfig({
     openMode: 0,
   },
   e2e: {
-    // We've imported your old cypress plugins here.
-    // You may want to clean this up later by importing these.
+    baseUrl: "http://127.0.0.1:3000",
     setupNodeEvents(on, config) {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
       return require('./cypress/plugins/index.js')(on, config);
     },
   },

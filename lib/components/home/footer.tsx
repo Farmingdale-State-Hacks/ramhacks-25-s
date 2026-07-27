@@ -153,7 +153,7 @@ export const Footer: React.FC = () => {
           transition={{ duration: 0.5, delay: 0.5 }}
         >
           <p className="text-gray-400">
-            &copy; {new Date().getFullYear()} FSHacks at Farmingdale State College. All
+            &copy; 2026 FSHacks at Farmingdale State College. All
             rights reserved.
           </p>
         </motion.div>

@@ -1,7 +1,7 @@
 import { sentryTanstackStart } from "@sentry/tanstackstart-react/vite";
 import tailwindcss from "@tailwindcss/vite";
-import type { TanStackStartInputConfig } from "@tanstack/react-start/config";
-import { defineConfig } from "@tanstack/react-start/config";
+import type { TanStackStartInputConfig } from "@tanstack/react-start-config";
+import { defineConfig } from "@tanstack/react-start-config";
 import { createRequire } from "node:module";
 import tsConfigPaths from "vite-tsconfig-paths";
 

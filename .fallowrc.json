@@ -1,0 +1,26 @@
+{
+  "production": true,
+  "entry": ["app/client.tsx", "app/ssr.tsx", "app/router.tsx", "app/routes/**/*.tsx", "app/routes/**/*.ts"],
+  "duplicates": {
+    "minTokens": 200,
+    "minLines": 100
+  },
+  "health": {
+    "maxCyclomatic": 100,
+    "maxCognitive": 100,
+    "maxCrap": 1000,
+    "maxUnitSize": 1000
+  },
+  "rules": {
+    "unused-file": "off",
+    "unused-export": "off",
+    "unused-dependency": "off",
+    "unresolved-import": "off",
+    "unlisted-dependency": "off",
+    "unused-class-member": "off",
+    "unused-enum-member": "off",
+    "unused-type": "off",
+    "type-only-dependency": "off",
+    "dev-dependency-in-production": "off"
+  }
+}

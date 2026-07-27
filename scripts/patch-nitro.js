@@ -18,3 +18,14 @@ if (fs.existsSync(p)) {
   fs.writeFileSync(p, code);
   console.log("Successfully patched nitro.mjs");
 }
+
+const nodeModulesH3Path = ".output/server/node_modules/h3-v2/dist/h3-Bz4OPZv_.mjs";
+if (fs.existsSync(nodeModulesH3Path)) {
+  let h3Code = fs.readFileSync(nodeModulesH3Path, "utf8");
+  h3Code = h3Code.replace(
+    "const url = _url && _url instanceof URL ? _url : new FastURL(req.url);",
+    'const url = _url && _url instanceof URL ? _url : new FastURL(req?.url || "http://localhost:3000/");'
+  );
+  fs.writeFileSync(nodeModulesH3Path, h3Code);
+  console.log("Successfully patched h3-v2 FastURL in .output");
+}

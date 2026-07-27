@@ -51,13 +51,17 @@ if (fs.existsSync(createStartHandlerPath)) {
   cshCode = cshCode.replace(
     /async function loadEntries\(\) \{[\s\S]*?\n\}/,
     `async function loadEntries() {
-	let routerEntry = {}, startEntry = {}, pluginAdapters = { hasPluginAdapters: false, pluginSerializationAdapters: [] };
+	let routerEntry = { getRouter: () => globalThis.__tsr_router }, startEntry = {}, pluginAdapters = { hasPluginAdapters: false, pluginSerializationAdapters: [] };
 	try { routerEntry = await import("#tanstack-router-entry"); } catch (e) {}
 	try { startEntry = await import("#tanstack-start-entry"); } catch (e) {}
 	try { pluginAdapters = await import("#tanstack-start-plugin-adapters"); } catch (e) {}
-	return { routerEntry, startEntry, pluginAdapters: pluginAdapters || { hasPluginAdapters: false, pluginSerializationAdapters: [] } };
+	return { routerEntry: routerEntry || { getRouter: () => globalThis.__tsr_router }, startEntry, pluginAdapters: pluginAdapters || { hasPluginAdapters: false, pluginSerializationAdapters: [] } };
 }`
   );
+  cshCode = cshCode.replace(
+    "const unwrapped = rawRouterEntry?.default || rawRouterEntry;",
+    "const unwrapped = rawRouterEntry?.default || rawRouterEntry || {}; if (!unwrapped.getRouter) unwrapped.getRouter = () => globalThis.__tsr_router;"
+  );
   fs.writeFileSync(createStartHandlerPath, cshCode);
-  console.log("Successfully patched createStartHandler.js loadEntries in .output");
+  console.log("Successfully patched createStartHandler.js loadEntries & getRouter in .output");
 }

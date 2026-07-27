@@ -48,25 +48,16 @@ if (fs.existsSync(createStartHandlerPath)) {
     "const { url, handledProtocolRelativeURL } = getNormalizedURL(request.url);",
     'const { url, handledProtocolRelativeURL } = getNormalizedURL(request?.url || "http://127.0.0.1:3000/");'
   );
+  cshCode = cshCode.replace(
+    /async function loadEntries\(\) \{[\s\S]*?\n\}/,
+    `async function loadEntries() {
+	let routerEntry = {}, startEntry = {}, pluginAdapters = { hasPluginAdapters: false, pluginSerializationAdapters: [] };
+	try { routerEntry = await import("#tanstack-router-entry"); } catch (e) {}
+	try { startEntry = await import("#tanstack-start-entry"); } catch (e) {}
+	try { pluginAdapters = await import("#tanstack-start-plugin-adapters"); } catch (e) {}
+	return { routerEntry, startEntry, pluginAdapters: pluginAdapters || { hasPluginAdapters: false, pluginSerializationAdapters: [] } };
+}`
+  );
   fs.writeFileSync(createStartHandlerPath, cshCode);
-  console.log("Successfully patched createStartHandler.js in .output");
+  console.log("Successfully patched createStartHandler.js loadEntries in .output");
 }
-
-const patchServerCorePackageJson = (pkgPath) => {
-  if (fs.existsSync(pkgPath)) {
-    try {
-      const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
-      pkg.imports = pkg.imports || {};
-      pkg.imports["#tanstack-router-entry"] = "./dist/esm/router-entry.js";
-      pkg.imports["#tanstack-start-entry"] = "./dist/esm/start-entry.js";
-      pkg.imports["#tanstack-start-manifest:v"] = "./dist/esm/router-manifest.js";
-      fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
-      console.log(`Successfully patched ${pkgPath}`);
-    } catch (e) {
-      console.error(`Failed patching ${pkgPath}:`, e);
-    }
-  }
-};
-
-patchServerCorePackageJson(".output/server/node_modules/@tanstack/start-server-core/package.json");
-patchServerCorePackageJson("node_modules/@tanstack/start-server-core/package.json");

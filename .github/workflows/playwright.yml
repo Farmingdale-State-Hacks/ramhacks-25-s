@@ -118,18 +118,6 @@ jobs:
           name: build-playwright
           path: .output
 
-      - name: Start server for testing (background)
-        run: |
-          bun run start &
-          echo "Started server with PID $!"
-          sleep 10
-
-      - name: Wait for server to be ready
-        run: |
-          echo "Waiting for server to be available..."
-          timeout 120s bash -c 'until curl -s http://127.0.0.1:3000 > /dev/null; do sleep 1; done'
-          echo "Server is up and running"
-
       - name: Run Playwright tests
         run: bunx playwright test --project=${{ matrix.project }}
         env:

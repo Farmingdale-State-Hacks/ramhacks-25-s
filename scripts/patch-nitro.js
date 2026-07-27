@@ -29,3 +29,25 @@ if (fs.existsSync(nodeModulesH3Path)) {
   fs.writeFileSync(nodeModulesH3Path, h3Code);
   console.log("Successfully patched h3-v2 FastURL in .output");
 }
+
+const ssrServerPath = ".output/server/node_modules/@tanstack/router-core/dist/esm/ssr/ssr-server.js";
+if (fs.existsSync(ssrServerPath)) {
+  let ssrCode = fs.readFileSync(ssrServerPath, "utf8");
+  ssrCode = ssrCode.replace(
+    "const rawUrl = new URL(url, base);",
+    'const rawUrl = new URL(url || "http://127.0.0.1:3000/", base || "http://127.0.0.1:3000/");'
+  );
+  fs.writeFileSync(ssrServerPath, ssrCode);
+  console.log("Successfully patched ssr-server.js getNormalizedURL in .output");
+}
+
+const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js";
+if (fs.existsSync(createStartHandlerPath)) {
+  let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
+  cshCode = cshCode.replace(
+    "const { url, handledProtocolRelativeURL } = getNormalizedURL(request.url);",
+    'const { url, handledProtocolRelativeURL } = getNormalizedURL(request?.url || "http://127.0.0.1:3000/");'
+  );
+  fs.writeFileSync(createStartHandlerPath, cshCode);
+  console.log("Successfully patched createStartHandler.js in .output");
+}

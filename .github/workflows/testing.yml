@@ -40,16 +40,14 @@ jobs:
       - name: Install Cypress binary
         run: bunx cypress install
 
+      - name: Build application for testing
+        run: bun run build:test
+
       - name: Cypress run
         uses: cypress-io/github-action@v6
         with:
-          # bun.lockb is not recognised by cypress-io/github-action's
-          # auto-install logic; skip its install pass since `bun install`
-          # ran already in the preceding step. The cypress binary is
-          # downloaded by the step above.
           install: false
           browser: ${{ matrix.browsers }}
-          build: bash -c 'ulimit -n 65536 && bun run build:test'
           start: bun run start
           wait-on: 'http://localhost:3000'
           wait-on-timeout: 120

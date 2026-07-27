@@ -1,5 +1,11 @@
-import { createAPIFileRoute } from "@tanstack/start-api-routes";
 import { getRequest } from "@tanstack/react-start/server";
+
+function createAPIFileRoute(path: string) {
+  return (methods: Record<string, (opts: { request: Request; params: Record<string, string> }) => Response | Promise<Response>>) => ({
+    path,
+    methods,
+  });
+}
 
 export const APIRoute = createAPIFileRoute("/api/health")({
   GET: () => {

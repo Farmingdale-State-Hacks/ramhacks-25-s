@@ -23,4 +23,13 @@ export default defineConfig({
       return require('./cypress/plugins/index.js')(on, config);
     },
   },
+  component: {
+    devServer: {
+      framework: "react",
+      bundler: "vite",
+    },
+    setupNodeEvents(on, config) {
+      return require('./cypress/plugins/index.js')(on, config);
+    },
+  },
 });

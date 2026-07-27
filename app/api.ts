@@ -1,6 +1,5 @@
-import {
-  createStartAPIHandler,
-  defaultAPIFileRouteHandler,
-} from "@tanstack/start-api-routes";
-
-export default createStartAPIHandler(defaultAPIFileRouteHandler);
+export default async function apiHandler() {
+  return new Response(JSON.stringify({ status: "healthy" }), {
+    headers: { "content-type": "application/json" },
+  });
+}

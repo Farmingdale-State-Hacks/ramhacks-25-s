@@ -4,6 +4,7 @@ import { Check, Award, Users, Code, Zap } from 'lucide-react'
 import type React from "react"
 import { Button } from "~/lib/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "~/lib/components/ui/card"
+import type { Variants } from "motion/react"
 import { motion } from "motion/react"
 
 export const Sponsors: React.FC = () => {
@@ -108,8 +109,7 @@ export const Sponsors: React.FC = () => {
     { id: "clubs", value: "4+", label: "Technical Clubs", icon: <Users size={24} /> },
   ]
 
-  // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -119,7 +119,7 @@ export const Sponsors: React.FC = () => {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,

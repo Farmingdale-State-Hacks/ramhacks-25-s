@@ -131,10 +131,10 @@ export default defineConfig({
    */
   ...(!skipServerStart ? {
     webServer: {
-      command: 'bun run dev',
+      command: 'PORT=3000 node .output/server/index.mjs',
       url: 'http://127.0.0.1:3000',
-      reuseExistingServer: true,
-      timeout: Number(process.env.PLAYWRIGHT_WEBSERVER_TIMEOUT) || 120000, // 2 minutes to start the server
+      reuseExistingServer: !process.env.CI,
+      timeout: Number(process.env.PLAYWRIGHT_WEBSERVER_TIMEOUT) || 120000,
     }
   } : {})
 });

@@ -3,6 +3,7 @@
 import { Brain, Code, Users } from "lucide-react"
 import type React from "react"
 import { Card, CardContent } from "~/lib/components/ui/card"
+import type { Variants } from "motion/react"
 import { motion } from "motion/react"
 
 export const About: React.FC = () => {
@@ -65,7 +66,7 @@ export const About: React.FC = () => {
   ]
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -76,7 +77,7 @@ export const About: React.FC = () => {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -85,7 +86,7 @@ export const About: React.FC = () => {
     },
   }
 
-  const fadeInUpVariants = {
+  const fadeInUpVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -94,7 +95,7 @@ export const About: React.FC = () => {
     },
   }
 
-  const drawLineVariants = {
+  const drawLineVariants: Variants = {
     hidden: { pathLength: 0, opacity: 0 },
     visible: {
       pathLength: 1,

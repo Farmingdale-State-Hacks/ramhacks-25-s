@@ -1,47 +1,51 @@
 "use client"
 
-import { Brain, Code, ShieldCheck, Users } from "lucide-react"
+import { Code2, ShieldCheck, Sparkles, Terminal } from "lucide-react"
 import type React from "react"
 import { Card, CardContent } from "~/lib/components/ui/card"
-import { motion } from "motion/react"
+import { motion, type Variants } from "motion/react"
 
 export const Clubs: React.FC = () => {
   const clubs = [
     {
-      name: "Supporting Women in Computing (SWIC)",
-      description:
-        "Focused on empowering women and minorities in tech through mentorship, workshops, and networking opportunities.",
-      icon: Users,
-      color: "bg-pink-500",
-      lightColor: "bg-pink-100",
-      textColor: "text-pink-600",
-      borderColor: "border-pink-200",
-    },
-    {
-      name: "Google Developer Group (GDG)",
-      description:
-        "Cultivating practical software engineering skills through hands-on projects, tech talks, and collaboration with Google technologies.",
-      icon: Code,
-      color: "bg-green-500",
-      lightColor: "bg-green-100",
-      textColor: "text-green-600",
-      borderColor: "border-green-200",
-    },
-    {
-      name: "Cybersecurity Club",
-      description:
-        "Promoting awareness of online security through capture-the-flag competitions, security workshops, and ethical hacking practices.",
-      icon: ShieldCheck,
+      id: "gdsc",
+      name: "Google Developer Student Club",
+      shortName: "GDSC FSC",
+      description: "A community group for students interested in Google developer technologies. All students from all undergraduate or graduate programs with an interest in growing as a developer are welcome.",
+      icon: <Terminal className="size-6" />,
       color: "bg-blue-500",
       lightColor: "bg-blue-100",
       textColor: "text-blue-600",
       borderColor: "border-blue-200",
     },
     {
-      name: "Artificial Intelligence Club",
-      description:
-        "Exploring trends in modern technology with a focus on machine learning, neural networks, and AI applications in various fields.",
-      icon: Brain,
+      id: "acm",
+      name: "Association for Computing Machinery",
+      shortName: "ACM Chapter",
+      description: "The world's largest educational and scientific computing society. Our campus chapter provides resources, networking, and technical workshops to advance computing as a science and profession.",
+      icon: <Code2 className="size-6" />,
+      color: "bg-indigo-500",
+      lightColor: "bg-indigo-100",
+      textColor: "text-indigo-600",
+      borderColor: "border-indigo-200",
+    },
+    {
+      id: "cyber",
+      name: "Cybersecurity Club",
+      shortName: "Cyber FSC",
+      description: "Dedicated to training the next generation of security professionals. We compete in CTF competitions, practice ethical hacking, and explore network defense and digital forensics.",
+      icon: <ShieldCheck className="size-6" />,
+      color: "bg-emerald-500",
+      lightColor: "bg-emerald-100",
+      textColor: "text-emerald-600",
+      borderColor: "border-emerald-200",
+    },
+    {
+      id: "wic",
+      name: "Women in Computing",
+      shortName: "WiC FSC",
+      description: "Supporting, celebrating, and encouraging the inclusion of women in tech. We provide mentorship, career guidance, technical skill-building, and a strong community network.",
+      icon: <Sparkles className="size-6" />,
       color: "bg-orange-500",
       lightColor: "bg-orange-100",
       textColor: "text-orange-600",
@@ -50,7 +54,7 @@ export const Clubs: React.FC = () => {
   ]
 
   // Animation variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -61,7 +65,7 @@ export const Clubs: React.FC = () => {
     },
   }
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -119,10 +123,10 @@ export const Clubs: React.FC = () => {
                     <div className="flex items-start mb-4">
                       {/* Icon */}
                       <div
-                        className={`${club.color} rounded-full p-3 mr-4 flex-shrink-0 shadow-md transform transition-transform duration-300 hover:rotate-12`}
+                        className={`${club.color} rounded-full p-3 mr-4 flex-shrink-0 shadow-md transform transition-transform duration-300 hover:rotate-12 flex items-center justify-center text-white`}
                         aria-hidden="true"
                       >
-                        <club.icon size={24} className="text-white" />
+                        {club.icon}
                       </div>
                       {/* Club Name */}
                       <h3 className={`text-xl font-semibold ${club.textColor} dark:text-gray-100 pt-1`}>{club.name}</h3>

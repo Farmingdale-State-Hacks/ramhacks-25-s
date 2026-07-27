@@ -1,13 +1,13 @@
 "use client"
 
-import { motion } from "motion/react"
+import { motion, type Variants } from "motion/react"
 import { Calendar, ChevronRight, MapPin, Sparkles, Users } from "lucide-react"
 import type React from "react"
 import { Button } from "~/lib/components/ui/button"
 
 export const Hero: React.FC = () => {
   // Animation variants
-  const fadeInUp = {
+  const fadeInUp: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -19,7 +19,7 @@ export const Hero: React.FC = () => {
     },
   }
 
-  const staggerContainer = {
+  const staggerContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,

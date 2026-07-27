@@ -1,15 +1,15 @@
-import { createAPIFileRoute } from "@tanstack/react-start/api";
-import { getWebRequest } from "@tanstack/react-start/server";
+import { createAPIFileRoute } from "@tanstack/start-api-routes";
+import { getRequest } from "@tanstack/react-start/server";
 
 export const APIRoute = createAPIFileRoute("/api/health")({
   GET: () => {
-    return new Response("ok", {
-      status: 200,
+    return new Response(JSON.stringify({ status: "healthy" }), {
+      headers: { "content-type": "application/json" },
     });
   },
   HEAD: async () => {
     try {
-      const request = getWebRequest();
+      const request = getRequest();
       if (!request) {
         throw new Error("No web request available");
       }

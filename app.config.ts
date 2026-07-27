@@ -46,18 +46,19 @@ const config = defineConfig({
       // Re-enabled once the repo migrates off the old TanStack Start
       // architecture (tracked in #133).
       // VitePWA({ ... }),
-      sentryTanstackStart({
-        org: process.env.SENTRY_ORG,
-        project: process.env.SENTRY_PROJECT,
-        authToken: process.env.SENTRY_AUTH_TOKEN,
-        silent: !process.env.CI,
-      }),
+      ...(process.env.SENTRY_ORG && process.env.SENTRY_PROJECT
+        ? [
+            sentryTanstackStart({
+              org: process.env.SENTRY_ORG,
+              project: process.env.SENTRY_PROJECT,
+              authToken: process.env.SENTRY_AUTH_TOKEN,
+              silent: !process.env.CI,
+            }),
+          ]
+        : []),
     ],
     ssr: {
       external: ["@tanstack/react-query", "@tanstack/react-query-devtools"],
-    },
-    esbuild: {
-      drop: ["console", "debugger"], // Drop console statements in production
     },
   },
 
@@ -69,20 +70,7 @@ const config = defineConfig({
   // don't need the compiled output. Sentry/release builds in CI lose this
   // optimization too, which is acceptable - production ships from Vercel,
   // not from CI artifacts.
-  react: process.env.CI
-    ? {}
-    : {
-        babel: {
-          plugins: [
-            [
-              "babel-plugin-react-compiler",
-              {
-                target: "19",
-              },
-            ],
-          ],
-        },
-      },
+  react: {},
 
   server: {
     /**

@@ -1,5 +1,5 @@
 /// <reference types="vinxi/types/client" />
-import { StartClient } from "@tanstack/react-start";
+import { StartClient } from "@tanstack/react-start-client";
 import { StrictMode } from "react";
 import { hydrateRoot } from "react-dom/client";
 import { createRouter } from "./router";
@@ -12,9 +12,11 @@ import { createRouter } from "./router";
 // unaffected.
 const router = createRouter();
 
+const StartClientComponent = StartClient as unknown as React.ComponentType<{ router: typeof router }>;
+
 hydrateRoot(
   document,
   <StrictMode>
-    <StartClient router={router} />
+    <StartClientComponent router={router} />
   </StrictMode>,
 );

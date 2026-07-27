@@ -11,7 +11,7 @@
     "dev": "vinxi dev",
     "format": "prettier --write .",
     "lint": "eslint .",
-    "start": "vinxi start",
+    "start": "node .output/server/index.mjs",
     "ui": "pnpm dlx shadcn@canary",
     "e2e:ci": "PLAYWRIGHT_TIMEOUT=120000 PLAYWRIGHT_WEBSERVER_TIMEOUT=180000 bun run playwright test",
     "cypress": "cypress open",

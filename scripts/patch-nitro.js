@@ -51,3 +51,22 @@ if (fs.existsSync(createStartHandlerPath)) {
   fs.writeFileSync(createStartHandlerPath, cshCode);
   console.log("Successfully patched createStartHandler.js in .output");
 }
+
+const patchServerCorePackageJson = (pkgPath) => {
+  if (fs.existsSync(pkgPath)) {
+    try {
+      const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"));
+      pkg.imports = pkg.imports || {};
+      pkg.imports["#tanstack-router-entry"] = "./dist/esm/router-entry.js";
+      pkg.imports["#tanstack-start-entry"] = "./dist/esm/start-entry.js";
+      pkg.imports["#tanstack-start-manifest:v"] = "./dist/esm/router-manifest.js";
+      fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2));
+      console.log(`Successfully patched ${pkgPath}`);
+    } catch (e) {
+      console.error(`Failed patching ${pkgPath}:`, e);
+    }
+  }
+};
+
+patchServerCorePackageJson(".output/server/node_modules/@tanstack/start-server-core/package.json");
+patchServerCorePackageJson("node_modules/@tanstack/start-server-core/package.json");

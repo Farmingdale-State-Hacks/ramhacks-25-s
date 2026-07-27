@@ -9,7 +9,7 @@ if (fs.existsSync(p)) {
   );
   code = code.replace(
     /import\s*\{[^}]*eventHandler[^}]*\}\s*from\s*['"]@tanstack\/start-server-core['"];?/g,
-    "import { eventHandler as eventHandler$1, toWebRequest, getResponseStatus, getEvent } from 'h3'; import { createStartHandler } from '@tanstack/start-server-core';"
+    "import { eventHandler as eventHandler$1, getResponseStatus } from 'h3'; import { createStartHandler } from '@tanstack/start-server-core'; const getEvent = (event) => event; const toWebRequest = (event) => event?.request || event;"
   );
   fs.writeFileSync(p, code);
   console.log("Successfully patched nitro.mjs");

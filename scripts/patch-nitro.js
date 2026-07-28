@@ -60,6 +60,14 @@ const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-serv
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
   cshCode = cshCode.replace(
+    'import { attachRouterServerSsrUtils, getNormalizedURL, getOrigin, isSsrResponse, normalizeSsrResponse, replaceSsrResponse, stripSsrResponseBody } from "@tanstack/router-core/ssr/server";',
+    'import { attachRouterServerSsrUtils, defaultRenderHandler, getNormalizedURL, getOrigin, isSsrResponse, normalizeSsrResponse, replaceSsrResponse, stripSsrResponseBody } from "@tanstack/router-core/ssr/server";'
+  );
+  cshCode = cshCode.replace(
+    "await cb({",
+    "await (typeof cb === 'function' ? cb : defaultRenderHandler)({"
+  );
+  cshCode = cshCode.replace(
     'request.headers.get("Accept")',
     '(typeof request?.headers?.get === "function" ? request.headers.get("Accept") : (request?.headers?.accept || request?.headers?.Accept || "*/*"))'
   );

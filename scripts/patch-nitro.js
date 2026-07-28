@@ -68,9 +68,13 @@ if (fs.existsSync(createStartHandlerPath)) {
 }`
   );
   cshCode = cshCode.replace(
+    "if (router) return router;",
+    "/* bypassed early cached router return */"
+  );
+  cshCode = cshCode.replace(
     "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null);",
     "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null) || handlerOptions?.createRouter || globalThis.__tsr_createRouter;"
   );
   fs.writeFileSync(createStartHandlerPath, cshCode);
-  console.log("Successfully patched createStartHandler.js defaultRouterEntry in .output");
+  console.log("Successfully patched createStartHandler.js in .output");
 }

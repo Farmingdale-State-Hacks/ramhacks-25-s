@@ -87,6 +87,30 @@ const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-serv
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
   cshCode = cshCode.replace(
+    /const renderFn = typeof cb === 'function'[\s\S]*?return normalizeSsrResponse\(ssrResult\);/,
+    `const renderFn = typeof cb === 'function' ? cb : (typeof globalThis.__tsr_render_cb === 'function' ? globalThis.__tsr_render_cb : null);
+	let ssrResult;
+	if (typeof renderFn === 'function') {
+		ssrResult = await renderFn({ request, router: routerInstance, responseHeaders });
+	} else {
+		const { renderRouterToStream } = await import("@tanstack/react-router/dist/esm/ssr/renderRouterToStream.js");
+		ssrResult = await renderRouterToStream({ request, router: routerInstance, responseHeaders });
+	}
+	return normalizeSsrResponse(ssrResult);`
+  );
+  cshCode = cshCode.replace(
+    /return normalizeSsrResponse\(await cb\(\{[\s\S]*?\}\)\);/,
+    `const renderFn = typeof cb === 'function' ? cb : (typeof globalThis.__tsr_render_cb === 'function' ? globalThis.__tsr_render_cb : null);
+	let ssrResult;
+	if (typeof renderFn === 'function') {
+		ssrResult = await renderFn({ request, router: routerInstance, responseHeaders });
+	} else {
+		const { renderRouterToStream } = await import("@tanstack/react-router/dist/esm/ssr/renderRouterToStream.js");
+		ssrResult = await renderRouterToStream({ request, router: routerInstance, responseHeaders });
+	}
+	return normalizeSsrResponse(ssrResult);`
+  );
+  cshCode = cshCode.replace(
     'request.headers.get("Accept")',
     '(typeof request?.headers?.get === "function" ? request.headers.get("Accept") : (request?.headers?.accept || request?.headers?.Accept || "*/*"))'
   );
@@ -105,18 +129,6 @@ if (fs.existsSync(createStartHandlerPath)) {
   cshCode = cshCode.replace(
     "await routerInstance.load();",
     "if (routerInstance?.history?.push) { try { routerInstance.history.push(url.pathname + url.search); } catch (e) {} } await routerInstance.load();"
-  );
-  cshCode = cshCode.replace(
-    /return normalizeSsrResponse\(await \(typeof cb === 'function' \? cb : globalThis\.__tsr_render_cb\)\(\{[\s\S]*?\}\)\);/,
-    `const renderFn = typeof cb === 'function' ? cb : (typeof globalThis.__tsr_render_cb === 'function' ? globalThis.__tsr_render_cb : null);
-	let ssrResult;
-	if (typeof renderFn === 'function') {
-		ssrResult = await renderFn({ request, router: routerInstance, responseHeaders });
-	} else {
-		const { renderRouterToStream } = await import("@tanstack/react-router/server");
-		ssrResult = await renderRouterToStream({ request, router: routerInstance, responseHeaders });
-	}
-	return normalizeSsrResponse(ssrResult);`
   );
   cshCode = cshCode.replace(
     "const router = (await getRouter()) || (globalThis.__tsr_createRouter ? await globalThis.__tsr_createRouter() : {});",

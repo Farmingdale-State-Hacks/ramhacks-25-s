@@ -57,12 +57,8 @@ if (fs.existsSync(renderRouterToStreamPath)) {
     "(router?.stores?.statusCode?.get() || router?.state?.statusCode || 200)"
   );
   rrtsCode = rrtsCode.replace(
-    /if \(isbot\(request\.headers\.get\("User-Agent"\)\)\) await waitForReadyOrAbort\(stream\.allReady, request\.signal\);/g,
-    '// Bypassed bot blocking for instant SSR streaming'
-  );
-  rrtsCode = rrtsCode.replace(
-    /\.\.\.isbot\(request\.headers\.get\("User-Agent"\)\) \? \{ onAllReady\(\) \{[\s\S]*?\} \} : \{ onShellReady\(\) \{[\s\S]*?\} \}/g,
-    'onShellReady() { pipeable.pipe(reactAppPassthrough); }'
+    /isbot\([^)]*\)/g,
+    'false'
   );
   rrtsCode = rrtsCode.replace(
     /request\.headers\.get\("User-Agent"\)/g,

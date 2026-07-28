@@ -16,6 +16,10 @@ if (fs.existsSync(p)) {
     "const startSerializer = { stringify: JSON.stringify, parse: JSON.parse };"
   );
   code = code.replace(
+    /var J = defineHandlerCallback\(/,
+    "var J = globalThis.__tsr_render_cb = defineHandlerCallback("
+  );
+  code = code.replace(
     "const Se = createStartHandler({ createRouter: me })(J);",
     "globalThis.__tsr_createRouter = me; const Se = createStartHandler({ createRouter: me })(J);"
   );
@@ -60,12 +64,8 @@ const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-serv
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
   cshCode = cshCode.replace(
-    'import { attachRouterServerSsrUtils, getNormalizedURL, getOrigin, isSsrResponse, normalizeSsrResponse, replaceSsrResponse, stripSsrResponseBody } from "@tanstack/router-core/ssr/server";',
-    'import { attachRouterServerSsrUtils, defaultRenderHandler, getNormalizedURL, getOrigin, isSsrResponse, normalizeSsrResponse, replaceSsrResponse, stripSsrResponseBody } from "@tanstack/router-core/ssr/server";'
-  );
-  cshCode = cshCode.replace(
     "await cb({",
-    "await (typeof cb === 'function' ? cb : defaultRenderHandler)({"
+    "await (typeof cb === 'function' ? cb : globalThis.__tsr_render_cb)({"
   );
   cshCode = cshCode.replace(
     'request.headers.get("Accept")',

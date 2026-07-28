@@ -111,6 +111,10 @@ if (fs.existsSync(createStartHandlerPath)) {
     "if (routerInstance?.history?.push) { try { routerInstance.history.push(url.pathname + url.search); } catch (e) {} } await routerInstance.load();"
   );
   cshCode = cshCode.replace(
+    "router.update({",
+    "if (!router && typeof globalThis.__tsr_createRouter === 'function') { try { router = await globalThis.__tsr_createRouter(); } catch(e) {} } if (router && typeof router.update === 'function') router.update({"
+  );
+  cshCode = cshCode.replace(
     /async function loadEntries\(\) \{[\s\S]*?\n\}/,
     `async function loadEntries() {
 	const defaultRouterEntry = { getRouter: () => (globalThis.__tsr_createRouter ? globalThis.__tsr_createRouter() : globalThis.__tsr_router) };

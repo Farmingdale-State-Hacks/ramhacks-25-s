@@ -44,7 +44,7 @@ jobs:
         run: bun run build:test
 
       - name: Cypress run
-        uses: cypress-io/github-action@v6
+        uses: cypress-io/github-action@v7
         with:
           install: false
           browser: ${{ matrix.browsers }}

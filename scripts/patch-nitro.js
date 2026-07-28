@@ -49,6 +49,21 @@ if (fs.existsSync(ssrServerPath)) {
   console.log("Successfully patched ssr-server.js getNormalizedURL in .output");
 }
 
+const renderRouterToStreamPath = ".output/server/node_modules/@tanstack/react-router/dist/esm/ssr/renderRouterToStream.js";
+if (fs.existsSync(renderRouterToStreamPath)) {
+  let rrtsCode = fs.readFileSync(renderRouterToStreamPath, "utf8");
+  rrtsCode = rrtsCode.replace(
+    /router\.stores\.statusCode\.get\(\)/g,
+    "(router?.stores?.statusCode?.get() || router?.state?.statusCode || 200)"
+  );
+  rrtsCode = rrtsCode.replace(
+    /request\.headers\.get\("User-Agent"\)/g,
+    '(typeof request?.headers?.get === "function" ? request.headers.get("User-Agent") : "")'
+  );
+  fs.writeFileSync(renderRouterToStreamPath, rrtsCode);
+  console.log("Successfully patched renderRouterToStream.js in .output");
+}
+
 const routerManifestPath = ".output/server/node_modules/@tanstack/start-server-core/dist/esm/router-manifest.js";
 if (fs.existsSync(routerManifestPath)) {
   let rmCode = fs.readFileSync(routerManifestPath, "utf8");

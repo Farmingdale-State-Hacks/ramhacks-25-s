@@ -45,6 +45,17 @@ if (fs.existsSync(ssrServerPath)) {
   console.log("Successfully patched ssr-server.js getNormalizedURL in .output");
 }
 
+const routerManifestPath = ".output/server/node_modules/@tanstack/start-server-core/dist/esm/router-manifest.js";
+if (fs.existsSync(routerManifestPath)) {
+  let rmCode = fs.readFileSync(routerManifestPath, "utf8");
+  rmCode = rmCode.replace(
+    /import\s*\(\s*["']tanstack-start-manifest:[^"']+["']\s*\)/g,
+    'Promise.resolve({ tsrStartManifest: () => ({ routes: {} }) })'
+  );
+  fs.writeFileSync(routerManifestPath, rmCode);
+  console.log("Successfully patched router-manifest.js in .output");
+}
+
 const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js";
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");

@@ -107,6 +107,10 @@ if (fs.existsSync(createStartHandlerPath)) {
     'const { url, handledProtocolRelativeURL } = getNormalizedURL(request?.url || "http://127.0.0.1:3000/");'
   );
   cshCode = cshCode.replace(
+    "await routerInstance.load();",
+    "if (routerInstance?.history?.push) { try { routerInstance.history.push(url.pathname + url.search); } catch (e) {} } await routerInstance.load();"
+  );
+  cshCode = cshCode.replace(
     /async function loadEntries\(\) \{[\s\S]*?\n\}/,
     `async function loadEntries() {
 	const defaultRouterEntry = { getRouter: () => (globalThis.__tsr_createRouter ? globalThis.__tsr_createRouter() : globalThis.__tsr_router) };

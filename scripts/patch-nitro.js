@@ -49,6 +49,10 @@ const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-serv
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
   cshCode = cshCode.replace(
+    "opts.router.stores.matches.get()",
+    "(opts.router.stores?.matches?.get() || opts.router.state?.matches || [])"
+  );
+  cshCode = cshCode.replace(
     "const { url, handledProtocolRelativeURL } = getNormalizedURL(request.url);",
     'const { url, handledProtocolRelativeURL } = getNormalizedURL(request?.url || "http://127.0.0.1:3000/");'
   );
@@ -68,11 +72,7 @@ if (fs.existsSync(createStartHandlerPath)) {
 }`
   );
   cshCode = cshCode.replace(
-    "/* bypassed early cached router return */",
-    "if (router) return router;"
-  );
-  cshCode = cshCode.replace(
-    "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null) || handlerOptions?.createRouter || globalThis.__tsr_createRouter;",
+    "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null);",
     "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null) || handlerOptions?.createRouter || globalThis.__tsr_createRouter; if (!routerFn && typeof globalThis.__tsr_createRouter === 'function') router = await globalThis.__tsr_createRouter();"
   );
   fs.writeFileSync(createStartHandlerPath, cshCode);

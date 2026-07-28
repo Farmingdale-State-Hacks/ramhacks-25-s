@@ -17,10 +17,10 @@ const logger = new Logger("Root", {
 });
 
 const TanStackRouterDevtools =
-  process.env.NODE_ENV === "production"
-    ? () => null // Render nothing in production
+  typeof window === "undefined" || process.env.NODE_ENV === "production"
+    ? () => null // Render nothing in SSR or production
     : lazy(() =>
-      // Lazy load in development
+      // Lazy load in development on client
       import("@tanstack/router-devtools").then((res) => ({
         default: res.TanStackRouterDevtools,
       })),

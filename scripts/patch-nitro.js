@@ -9,15 +9,15 @@ if (fs.existsSync(p)) {
   );
   code = code.replace(
     /import\s*\{[^}]*eventHandler[^}]*\}\s*from\s*['"]@tanstack\/start-server-core['"];?/g,
-    "import { eventHandler as eventHandler$1, getResponseStatus } from 'h3'; import { createStartHandler, defaultRenderHandler } from '@tanstack/start-server-core'; const getEvent = (event) => event || {}; const toWebRequest = (event) => { if (!event) return new Request('http://127.0.0.1:3000/'); if (event instanceof Request) return event; if (event.request instanceof Request) return event.request; const urlPath = event.url || event.req?.url || '/'; const fullUrl = urlPath.startsWith('http') ? urlPath : `http://127.0.0.1:3000${urlPath.startsWith('/') ? '' : '/'}${urlPath}`; const method = event.method || event.req?.method || 'GET'; const rawHeaders = event.headers || event.req?.headers || {}; const headers = new Headers(); if (rawHeaders) { if (typeof rawHeaders.entries === 'function') { for (const [k, v] of rawHeaders.entries()) { if (v !== undefined && v !== null) headers.set(k, String(v)); } } else { for (const k of Object.keys(rawHeaders)) { const v = rawHeaders[k]; if (v !== undefined && v !== null) headers.set(k, String(v)); } } } return new Request(fullUrl, { method, headers }); };"
+    "import { eventHandler as eventHandler$1, getResponseStatus } from 'h3'; import { createStartHandler } from '@tanstack/start-server-core'; const getEvent = (event) => event || {}; const toWebRequest = (event) => { if (!event) return new Request('http://127.0.0.1:3000/'); if (event instanceof Request) return event; if (event.request instanceof Request) return event.request; const urlPath = event.url || event.req?.url || '/'; const fullUrl = urlPath.startsWith('http') ? urlPath : `http://127.0.0.1:3000${urlPath.startsWith('/') ? '' : '/'}${urlPath}`; const method = event.method || event.req?.method || 'GET'; const rawHeaders = event.headers || event.req?.headers || {}; const headers = new Headers(); if (rawHeaders) { if (typeof rawHeaders.entries === 'function') { for (const [k, v] of rawHeaders.entries()) { if (v !== undefined && v !== null) headers.set(k, String(v)); } } else { for (const k of Object.keys(rawHeaders)) { const v = rawHeaders[k]; if (v !== undefined && v !== null) headers.set(k, String(v)); } } } return new Request(fullUrl, { method, headers }); };"
   );
   code = code.replace(
     /import\s*\{[^}]*startSerializer[^}]*\}\s*from\s*['"]@tanstack\/start-client-core['"];?/g,
     "const startSerializer = { stringify: JSON.stringify, parse: JSON.parse };"
   );
   code = code.replace(
-    /const Se = createStartHandler\(\{ createRouter: me \}\)\([^)]*\);/,
-    "globalThis.__tsr_createRouter = me; const Se = createStartHandler({ createRouter: me })(defaultRenderHandler);"
+    "const Se = createStartHandler({ createRouter: me })(J);",
+    "globalThis.__tsr_createRouter = me; const Se = createStartHandler({ createRouter: me })(J);"
   );
   fs.writeFileSync(p, code);
   console.log("Successfully patched nitro.mjs");

@@ -123,7 +123,7 @@ if (fs.existsSync(createStartHandlerPath)) {
   );
   cshCode = cshCode.replace(
     "await routerInstance.load();",
-    "if (routerInstance?.history?.push) { try { routerInstance.history.push(url.pathname + url.search); } catch (e) {} } await routerInstance.load();"
+    'const targetPath = (url?.pathname && url.pathname.startsWith("/")) ? (url.pathname + (url.search || "")) : "/"; if (routerInstance?.history?.push) { try { routerInstance.history.push(targetPath); } catch (e) {} } await routerInstance.load();'
   );
   cshCode = cshCode.replace(
     "const router = (await getRouter()) || (globalThis.__tsr_createRouter ? await globalThis.__tsr_createRouter() : {});",
@@ -152,9 +152,10 @@ if (fs.existsSync(createStartHandlerPath)) {
 	}
 	let isShell = IS_SHELL_ENV;
 	if (IS_PRERENDERING && !isShell) isShell = request.headers.get(HEADERS.TSS_SHELL) === "true";
+	const initialPath = (url?.pathname && url.pathname.startsWith("/")) ? (url.pathname + (url.search || "")) : "/";
 	if (router && typeof router.update === 'function') {
 		try {
-			const history = createMemoryHistory({ initialEntries: [href] });
+			const history = createMemoryHistory({ initialEntries: [initialPath] });
 			router.update({ history, isShell });
 		} catch (e) {}
 	}

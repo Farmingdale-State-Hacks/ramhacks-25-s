@@ -49,8 +49,8 @@ const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-serv
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
   cshCode = cshCode.replace(
-    "opts.router.stores.matches.get()",
-    "(opts.router.stores?.matches?.get() || opts.router.state?.matches || [])"
+    /\.stores\.matches\.get\(\)/g,
+    "?.stores?.matches?.get() || (typeof routerInstance !== 'undefined' ? routerInstance?.state?.matches : opts?.router?.state?.matches) || []"
   );
   cshCode = cshCode.replace(
     "const { url, handledProtocolRelativeURL } = getNormalizedURL(request.url);",

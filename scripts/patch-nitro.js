@@ -64,8 +64,12 @@ if (fs.existsSync(createStartHandlerPath)) {
     '(typeof request?.headers?.get === "function" ? request.headers.get("Accept") : (request?.headers?.accept || request?.headers?.Accept || "*/*"))'
   );
   cshCode = cshCode.replace(
-    /\.stores\.matches\.get\(\)/g,
-    "?.stores?.matches?.get() || (typeof routerInstance !== 'undefined' ? routerInstance?.state?.matches : opts?.router?.state?.matches) || []"
+    "opts.router.stores.matches.get()",
+    "(opts.router.stores?.matches?.get() || opts.router.state?.matches || [])"
+  );
+  cshCode = cshCode.replace(
+    "routerInstance.stores.matches.get()",
+    "(routerInstance.stores?.matches?.get() || routerInstance.state?.matches || [])"
   );
   cshCode = cshCode.replace(
     "const { url, handledProtocolRelativeURL } = getNormalizedURL(request.url);",

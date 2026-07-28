@@ -27,7 +27,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Restore dependencies cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.bun/install/cache
@@ -65,7 +65,7 @@ jobs:
         uses: oven-sh/setup-bun@v2
 
       - name: Restore dependencies cache
-        uses: actions/cache@v5
+        uses: actions/cache@v6
         with:
           path: |
             ~/.bun/install/cache

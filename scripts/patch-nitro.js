@@ -111,8 +111,40 @@ if (fs.existsSync(createStartHandlerPath)) {
     "if (routerInstance?.history?.push) { try { routerInstance.history.push(url.pathname + url.search); } catch (e) {} } await routerInstance.load();"
   );
   cshCode = cshCode.replace(
-    "router.update({",
-    "if (!router && typeof globalThis.__tsr_createRouter === 'function') { try { router = await globalThis.__tsr_createRouter(); } catch(e) {} } if (router && typeof router.update === 'function') router.update({"
+    "const router = (await getRouter()) || (globalThis.__tsr_createRouter ? await globalThis.__tsr_createRouter() : {});",
+    "let router = await getRouter(); if (!router && typeof globalThis.__tsr_createRouter === 'function') { try { router = await globalThis.__tsr_createRouter(); } catch (e) {} } if (!router || typeof router !== 'object') router = {}; if (!router.rewrite) router.rewrite = (u) => u; if (!router.getMatchedRoutes) router.getMatchedRoutes = () => ({ matchedRoutes: [], foundRoute: null, routeParams: {} });"
+  );
+  cshCode = cshCode.replace(
+    /const getRouter = async \(\) => \{[\s\S]*?return router;\s*\};/,
+    `const getRouter = async () => {
+	if (router) return router;
+	if (typeof handlerOptions?.createRouter === "function") {
+		try { router = await handlerOptions.createRouter(); } catch (e) {}
+	}
+	if (!router && typeof globalThis.__tsr_createRouter === "function") {
+		try { router = await globalThis.__tsr_createRouter(); } catch (e) {}
+	}
+	if (!router) {
+		const rawRouterEntry = entries?.routerEntry;
+		const unwrapped = rawRouterEntry?.default || rawRouterEntry;
+		const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null);
+		if (typeof routerFn === 'function') {
+			try { router = await routerFn(); } catch (e) {}
+		}
+	}
+	if (!router && typeof globalThis.__tsr_createRouter === 'function') {
+		try { router = await globalThis.__tsr_createRouter(); } catch (e) {}
+	}
+	let isShell = IS_SHELL_ENV;
+	if (IS_PRERENDERING && !isShell) isShell = request.headers.get(HEADERS.TSS_SHELL) === "true";
+	if (router && typeof router.update === 'function') {
+		try {
+			const history = createMemoryHistory({ initialEntries: [href] });
+			router.update({ history, isShell });
+		} catch (e) {}
+	}
+	return router;
+};`
   );
   cshCode = cshCode.replace(
     /async function loadEntries\(\) \{[\s\S]*?\n\}/,
@@ -128,10 +160,6 @@ if (fs.existsSync(createStartHandlerPath)) {
 		pluginAdapters: pluginAdapters || { hasPluginAdapters: false, pluginSerializationAdapters: [] }
 	};
 }`
-  );
-  cshCode = cshCode.replace(
-    "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null);",
-    "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null) || handlerOptions?.createRouter || globalThis.__tsr_createRouter; if (!routerFn && typeof globalThis.__tsr_createRouter === 'function') router = await globalThis.__tsr_createRouter();"
   );
   fs.writeFileSync(createStartHandlerPath, cshCode);
   console.log("Successfully patched createStartHandler.js in .output");

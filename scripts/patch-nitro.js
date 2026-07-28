@@ -87,10 +87,9 @@ const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-serv
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
   
-  if (!cshCode.includes("const renderFn = typeof cb === 'function'")) {
-    cshCode = cshCode.replace(
-      "return normalizeSsrResponse(await cb({",
-      `const renderFn = typeof cb === 'function' ? cb : (typeof globalThis.__tsr_render_cb === 'function' ? globalThis.__tsr_render_cb : null);
+  cshCode = cshCode.replace(
+    /return normalizeSsrResponse\(await cb\(\{[\s\S]*?\}\)\);/,
+    `const renderFn = typeof cb === 'function' ? cb : (typeof globalThis.__tsr_render_cb === 'function' ? globalThis.__tsr_render_cb : null);
 	let ssrResult;
 	if (typeof renderFn === 'function') {
 		ssrResult = await renderFn({ request, router: routerInstance, responseHeaders });
@@ -98,10 +97,9 @@ if (fs.existsSync(createStartHandlerPath)) {
 		const { renderRouterToStream } = await import("../../../react-router/dist/esm/ssr/renderRouterToStream.js");
 		ssrResult = await renderRouterToStream({ request, router: routerInstance, responseHeaders });
 	}
-	return normalizeSsrResponse(ssrResult); //`
-    );
-  }
-  
+	return normalizeSsrResponse(ssrResult);`
+  );
+
   cshCode = cshCode.replace(
     /@tanstack\/react-router\/dist\/esm\/ssr\/renderRouterToStream\.js/g,
     '../../../react-router/dist/esm/ssr/renderRouterToStream.js'

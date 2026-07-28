@@ -55,11 +55,16 @@ if (fs.existsSync(createStartHandlerPath)) {
   cshCode = cshCode.replace(
     /async function loadEntries\(\) \{[\s\S]*?\n\}/,
     `async function loadEntries() {
-	let routerEntry = {}, startEntry = {}, pluginAdapters = { hasPluginAdapters: false, pluginSerializationAdapters: [] };
+	const defaultRouterEntry = { getRouter: () => (globalThis.__tsr_createRouter ? globalThis.__tsr_createRouter() : globalThis.__tsr_router) };
+	let routerEntry = defaultRouterEntry, startEntry = {}, pluginAdapters = { hasPluginAdapters: false, pluginSerializationAdapters: [] };
 	try { routerEntry = await import("#tanstack-router-entry"); } catch (e) {}
 	try { startEntry = await import("#tanstack-start-entry"); } catch (e) {}
 	try { pluginAdapters = await import("#tanstack-start-plugin-adapters"); } catch (e) {}
-	return { routerEntry: routerEntry || {}, startEntry, pluginAdapters: pluginAdapters || { hasPluginAdapters: false, pluginSerializationAdapters: [] } };
+	return {
+		routerEntry: (routerEntry && typeof routerEntry.getRouter === 'function') ? routerEntry : defaultRouterEntry,
+		startEntry: startEntry || {},
+		pluginAdapters: pluginAdapters || { hasPluginAdapters: false, pluginSerializationAdapters: [] }
+	};
 }`
   );
   cshCode = cshCode.replace(
@@ -67,5 +72,5 @@ if (fs.existsSync(createStartHandlerPath)) {
     "const routerFn = unwrapped?.getRouter || unwrapped?.createRouter || (typeof unwrapped === 'function' ? unwrapped : null) || handlerOptions?.createRouter || globalThis.__tsr_createRouter;"
   );
   fs.writeFileSync(createStartHandlerPath, cshCode);
-  console.log("Successfully patched createStartHandler.js routerFn in .output");
+  console.log("Successfully patched createStartHandler.js defaultRouterEntry in .output");
 }

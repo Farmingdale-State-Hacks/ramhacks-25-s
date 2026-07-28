@@ -9,7 +9,7 @@ if (fs.existsSync(p)) {
   );
   code = code.replace(
     /import\s*\{[^}]*eventHandler[^}]*\}\s*from\s*['"]@tanstack\/start-server-core['"];?/g,
-    "import { eventHandler as eventHandler$1, getResponseStatus } from 'h3'; import { createStartHandler } from '@tanstack/start-server-core'; const getEvent = (event) => event || {}; const toWebRequest = (event) => { if (!event) return new Request('http://127.0.0.1:3000/'); if (event instanceof Request) return event; if (event.request instanceof Request) return event.request; const urlPath = event.url || event.req?.url || '/'; const fullUrl = urlPath.startsWith('http') ? urlPath : `http://127.0.0.1:3000${urlPath.startsWith('/') ? '' : '/'}${urlPath}`; const method = event.method || event.req?.method || 'GET'; const headers = event.headers || event.req?.headers || {}; return new Request(fullUrl, { method, headers }); };"
+    "import { eventHandler as eventHandler$1, getResponseStatus } from 'h3'; import { createStartHandler } from '@tanstack/start-server-core'; const getEvent = (event) => event || {}; const toWebRequest = (event) => { if (!event) return new Request('http://127.0.0.1:3000/'); if (event instanceof Request) return event; if (event.request instanceof Request) return event.request; const urlPath = event.url || event.req?.url || '/'; const fullUrl = urlPath.startsWith('http') ? urlPath : `http://127.0.0.1:3000${urlPath.startsWith('/') ? '' : '/'}${urlPath}`; const method = event.method || event.req?.method || 'GET'; const rawHeaders = event.headers || event.req?.headers || {}; const headers = new Headers(); if (rawHeaders) { if (typeof rawHeaders.entries === 'function') { for (const [k, v] of rawHeaders.entries()) { if (v !== undefined && v !== null) headers.set(k, String(v)); } } else { for (const k of Object.keys(rawHeaders)) { const v = rawHeaders[k]; if (v !== undefined && v !== null) headers.set(k, String(v)); } } } return new Request(fullUrl, { method, headers }); };"
   );
   code = code.replace(
     /import\s*\{[^}]*startSerializer[^}]*\}\s*from\s*['"]@tanstack\/start-client-core['"];?/g,
@@ -48,6 +48,10 @@ if (fs.existsSync(ssrServerPath)) {
 const createStartHandlerPath = ".output/server/node_modules/@tanstack/start-server-core/dist/esm/createStartHandler.js";
 if (fs.existsSync(createStartHandlerPath)) {
   let cshCode = fs.readFileSync(createStartHandlerPath, "utf8");
+  cshCode = cshCode.replace(
+    'request.headers.get("Accept")',
+    '(typeof request?.headers?.get === "function" ? request.headers.get("Accept") : (request?.headers?.accept || request?.headers?.Accept || "*/*"))'
+  );
   cshCode = cshCode.replace(
     /\.stores\.matches\.get\(\)/g,
     "?.stores?.matches?.get() || (typeof routerInstance !== 'undefined' ? routerInstance?.state?.matches : opts?.router?.state?.matches) || []"

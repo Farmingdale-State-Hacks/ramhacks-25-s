@@ -57,7 +57,7 @@ if (fs.existsSync(renderRouterToStreamPath)) {
     "(router?.stores?.statusCode?.get() || router?.state?.statusCode || 200)"
   );
   rrtsCode = rrtsCode.replace(
-    /isbot\([^)]*\)/g,
+    /isbot\(request\.headers\.get\("User-Agent"\)\)/g,
     'false'
   );
   rrtsCode = rrtsCode.replace(

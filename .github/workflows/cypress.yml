@@ -103,20 +103,20 @@ jobs:
       - name: Install Cypress binary
         run: bunx cypress install
 
+      - name: Start server for testing
+        run: |
+          bun run start &
+          echo "Started server with PID $!"
+          timeout 120s bash -c 'until curl -s http://127.0.0.1:3000/ > /dev/null; do sleep 1; done'
+          echo "Server is ready!"
+
       - name: Cypress run
         uses: cypress-io/github-action@v7
         with:
-          # bun.lockb isn't recognised by the action's auto-install logic;
-          # bun install ran in the install job. The cypress binary is
-          # downloaded by the preceding step.
           install: false
           browser: ${{ matrix.browser }}
-          start: bun run start
-          wait-on: 'http://127.0.0.1:3000'
-          wait-on-timeout: 120
           record: false
         env:
-          # pass GitHub token to detect new build vs re-run build
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Upload Cypress Screenshots

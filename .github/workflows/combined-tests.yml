@@ -113,18 +113,18 @@ jobs:
       - name: Install Cypress binary
         run: bunx cypress install
 
+      - name: Start server for testing
+        run: |
+          bun run start &
+          echo "Started server with PID $!"
+          timeout 120s bash -c 'until curl -s http://127.0.0.1:3000/ > /dev/null; do sleep 1; done'
+          echo "Server is ready!"
+
       - name: Cypress run
         uses: cypress-io/github-action@v7
         with:
-          # bun.lockb isn't recognised by the action's auto-install logic;
-          # node_modules is already populated and the cypress binary is
-          # downloaded in the preceding step (bun install doesn't run
-          # cypress' postinstall reliably).
           install: false
           browser: chrome
-          start: bun run start
-          wait-on: 'http://127.0.0.1:3000'
-          wait-on-timeout: 120
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
